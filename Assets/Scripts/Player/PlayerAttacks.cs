@@ -9,12 +9,14 @@ public class PlayerAttacks : MonoBehaviour {
     [Header("Shot Attack")]
 
     public float damageShotAttack;
+    public Vector3 knockBackShotAttack;
     public float speedShotAttack;
     [SerializeField] private GameObject _prefabShotAttack;
     public Vector3 spawnPointShotAttack;
     [SerializeField] private float _delayToSpawnShotAttack;
     [SerializeField] private int _instanceAmountShotAttack;
     private BulletPlayer[] _instancesShotAttack;
+    public float timeToDespawnShotAttack;
 
     [Header("Stream Attack")]
 

@@ -15,8 +15,8 @@ public class PlayerData : MonoBehaviour {
 
     [Header("Combat Stats")]
 
-    public float maxHealthPoints;
-    [System.NonSerialized] public static float healthPoints;
+    [SerializeField] private float _maxHealthPoints;
+    private static float _healthPoints;
 
     [Header("Upgrades")]
 
@@ -35,6 +35,20 @@ public class PlayerData : MonoBehaviour {
         transformPlayer = GetComponent<Transform>();
     }
 
+    private void Start() {
+        _healthPoints = _maxHealthPoints;
+    }
+
+    public void TakeDamage(float damage, Vector3 knockBack) {
+        _healthPoints -= damage;
+        if (_healthPoints < 0) {
+            // Player death anim/restart
+        }
+        else {
+            // Remember to stop other velocity scripts
+            rbPlayer.velocity = knockBack;
+        }
+    }
     // IENumerator pesa
     // InvokeRepeating pra evitar codigo desnecessário no update
     // Evitar colliders, desligar objetos distantes

@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2abdf016a49aa4aa7d312572826565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 3
+  _maxHealthPoints: 0
   doubleJumpUpgrade: 0
   healthPointsUpgrade: 0
   poisonBlowUpgrade: 0
@@ -1813,11 +1813,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageShotAttack: 2
+  knockBackShotAttack: {x: 0.5, y: 0.15, z: 0}
   speedShotAttack: 6
   _prefabShotAttack: {fileID: 1051532121288745979, guid: e64f4018b30c0ac4f8ab8122fa3e6d8c, type: 3}
   spawnPointShotAttack: {x: 0, y: -0.25, z: 0}
   _delayToSpawnShotAttack: 0.1
   _instanceAmountShotAttack: 7
+  timeToDespawnShotAttack: 10
   damagePerSecondStreamAttack: 1
   _speedStreamAttack: 2
   _prefabStreamAttack: {fileID: 0}

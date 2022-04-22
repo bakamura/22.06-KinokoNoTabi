@@ -6,7 +6,6 @@ public class BulletPlayer : MonoBehaviour {
 
     [Header("Instance Reusing")]
 
-    [SerializeField] private float _timeToDespawn;
     private bool _isActive = false;
 
     [Header("Components")]
@@ -26,8 +25,7 @@ public class BulletPlayer : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (_isActive) {
             if (collision.tag == "Enemy") {
-                // Uncoment when "EnemyData" is created
-                // collision.GetComponent<EnemyData>().TakeDamage(PlayerAttacks.Instance.damageShotAttack);
+                collision.GetComponent<EnemyData>().TakeDamage(PlayerAttacks.Instance.damageShotAttack, Mathf.Sign(_rbBullet.velocity.x) * PlayerAttacks.Instance.knockBackShotAttack);
                 Activate(false);
             }
             else if (collision.tag == "Ground") Activate(false);
@@ -50,7 +48,7 @@ public class BulletPlayer : MonoBehaviour {
     }
 
     private IEnumerator AutoDeactivate() {
-        yield return new WaitForSeconds(_timeToDespawn);
+        yield return new WaitForSeconds(PlayerAttacks.Instance.timeToDespawnShotAttack);
 
         if(_isActive) Activate(false);
 
