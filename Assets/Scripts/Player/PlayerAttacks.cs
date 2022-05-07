@@ -32,9 +32,9 @@ public class PlayerAttacks : MonoBehaviour {
     }
 
     private void Start() {
-        GameObject bulletInstancesParent = new GameObject("BulletInstancesParent");
+        GameObject parentObject = new GameObject("BulletInstancesParent");
         _instancesShotAttack = new BulletPlayer[_instanceAmountShotAttack];
-        for (int i = 0; i < _instanceAmountShotAttack; i++) _instancesShotAttack[i] = Instantiate(_prefabShotAttack, Vector3.zero, Quaternion.identity, bulletInstancesParent.transform).GetComponent<BulletPlayer>();
+        for (int i = 0; i < _instanceAmountShotAttack; i++) _instancesShotAttack[i] = Instantiate(_prefabShotAttack, Vector3.zero, Quaternion.identity, parentObject.transform).GetComponent<BulletPlayer>();
     }
 
     private void Update() {
