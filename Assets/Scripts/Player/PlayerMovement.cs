@@ -40,25 +40,20 @@ public class PlayerMovement : MonoBehaviour {
             if (_isGrounded) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
-
-                // Setting Animations REMAKE
-                PlayerData.animatorPlayer.SetBool("Jumping", true);
+                PlayerAnimations.Instance.ChangeAnimation("PlayerJump"); // Anim
             }
             else if (!_hasDoubleJumped && PlayerData.Instance.doubleJumpUpgrade) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
                 _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
                 _hasDoubleJumped = true;
-
-                // Setting Animations REMAKE
-                PlayerData.animatorPlayer.SetBool("DoubleJumping", true);
+                PlayerAnimations.Instance.ChangeAnimation("PlayerDoubleJump"); // Anim
             }
         }
 
         // NOTE: if player hits platform before falling, might not work properly
         if (PlayerData.rbPlayer.velocity.y <= -0.1f) {
-            if (PlayerData.animatorPlayer.GetBool("Jumping") && _isGrounded) PlayerData.animatorPlayer.SetBool("Jumping", false); // REMAKE
-            else if (_hasDoubleJumped) PlayerData.srPlayer.flipY = true;
+            if ((PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerJump" || PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerDoubleJump") && _isGrounded) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
         }
         if (PlayerData.rbPlayer.velocity.y >= -0.1f) PlayerData.srPlayer.flipY = false;
     }
@@ -73,9 +68,9 @@ public class PlayerMovement : MonoBehaviour {
 
         // Settings Animations REMAKE
         if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
-        if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerData.animatorPlayer.SetInteger("Running", 0);
-        else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerData.animatorPlayer.SetInteger("Running", 2);
-        else PlayerData.animatorPlayer.SetInteger("Running", 1);
+        if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
+        else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerAnimations.Instance.ChangeAnimation("PlayerBreak"); // Anim
+        else PlayerAnimations.Instance.ChangeAnimation("PlayerMove");
     }
 
 #if UNITY_EDITOR

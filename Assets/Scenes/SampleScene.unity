@@ -1711,10 +1711,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1377751660}
   - component: {fileID: 1377751659}
-  - component: {fileID: 1377751665}
   - component: {fileID: 1377751662}
   - component: {fileID: 1377751663}
   - component: {fileID: 1377751658}
+  - component: {fileID: 1377751667}
   - component: {fileID: 1377751664}
   - component: {fileID: 1377751661}
   - component: {fileID: 1377751666}
@@ -1877,29 +1877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2abdf016a49aa4aa7d312572826565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealthPoints: 0
+  _maxHealthPoints: 5
   doubleJumpUpgrade: 0
   healthPointsUpgrade: 0
   poisonBlowUpgrade: 0
---- !u!95 &1377751665
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377751657}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d12ba5c5d30f9a34bb021344d604bd8e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1377751666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1925,6 +1906,22 @@ MonoBehaviour:
   _prefabStreamAttack: {fileID: 0}
   _spawnPointStreamAttack: {x: 0, y: -0.25, z: 0}
   _delayToSpawnStreamAttack: 0.2
+--- !u!114 &1377751667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377751657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f2a6e3a52475b4bbeb022cd881734c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animations:
+  - {fileID: 11400000, guid: fa7907d3ad9815a40a06a8061db19bcf, type: 2}
+  - {fileID: 11400000, guid: ea817505ee83434489815c65ade43839, type: 2}
+  - {fileID: 11400000, guid: f9ac383da40912147a90e475126a118f, type: 2}
 --- !u!1 &1407425667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,8 +2202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ConfineMode: 0
-  m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 1859520369}
   m_ConfineScreenEdges: 1
   m_Damping: 0

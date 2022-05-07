@@ -11,7 +11,7 @@ public class PlayerData : MonoBehaviour {
     [HideInInspector] public static Transform transformPlayer;
     [HideInInspector] public static Rigidbody2D rbPlayer;
     [HideInInspector] public static SpriteRenderer srPlayer;
-    [HideInInspector] public static Animator animatorPlayer; // Will be unused ?
+    //[HideInInspector] public static Animator animatorPlayer;
 
     [Header("Combat Stats")]
 
@@ -50,7 +50,5 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
-    // IENumerator pesa
-    // InvokeRepeating pra evitar codigo desnecessário no update
     // Evitar colliders, desligar objetos distantes
 }
