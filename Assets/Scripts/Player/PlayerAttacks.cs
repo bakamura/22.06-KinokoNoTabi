@@ -47,7 +47,7 @@ public class PlayerAttacks : MonoBehaviour {
     private void StartShotAttackAnimation() {
         PlayerInputs.shotAttackKeyPressed = 0;
         // TO DO: Make so that when shooting while input in the oposite direction, stop movement first, turn around, then shot in the input direction
-        PlayerData.animatorPlayer.SetTrigger("ShotAttacking"); // REMAKE
+        PlayerAnimations.Instance.ChangeAnimation("PlayerShotAttack");
 
         Invoke(nameof(ShotAttackInstantiate), _delayToSpawnShotAttack);
         // Invoke function to stop animation ?
@@ -61,7 +61,7 @@ public class PlayerAttacks : MonoBehaviour {
     private void StartStreamAttackAnimation() {
         PlayerInputs.streamAttackKeyPressed = 0;
         // TO DO: Make so that when spitting while input in the oposite direction, stop movement first, then shot in the input direction
-        PlayerData.animatorPlayer.SetTrigger("StreamAttacking"); // REMAKE
+        PlayerAnimations.Instance.ChangeAnimation("PlayerStreamAttack");
 
         Invoke(nameof(StreamAttackInstantiate), _delayToSpawnStreamAttack);
     }
