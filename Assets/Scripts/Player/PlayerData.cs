@@ -8,10 +8,10 @@ public class PlayerData : MonoBehaviour {
 
     [Header("Components")]
 
-    [System.NonSerialized] public static Rigidbody2D rbPlayer;
-    [System.NonSerialized] public static Animator animatorPlayer;
-    [System.NonSerialized] public static SpriteRenderer srPlayer;
-    [System.NonSerialized] public static Transform transformPlayer;
+    [HideInInspector] public static Transform transformPlayer;
+    [HideInInspector] public static Rigidbody2D rbPlayer;
+    [HideInInspector] public static SpriteRenderer srPlayer;
+    [HideInInspector] public static Animator animatorPlayer; // Will be unused ?
 
     [Header("Combat Stats")]
 
@@ -20,7 +20,7 @@ public class PlayerData : MonoBehaviour {
 
     [Header("Upgrades")]
 
-    // Later, make them all [System.nonSerializable]
+    // Later, make them all [HideInInspector]
     public bool doubleJumpUpgrade = false;
     public bool healthPointsUpgrade = false;
     public bool poisonBlowUpgrade = false;
@@ -49,8 +49,8 @@ public class PlayerData : MonoBehaviour {
             rbPlayer.velocity = knockBack;
         }
     }
+
     // IENumerator pesa
     // InvokeRepeating pra evitar codigo desnecessário no update
     // Evitar colliders, desligar objetos distantes
-
 }

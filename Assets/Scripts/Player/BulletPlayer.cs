@@ -34,24 +34,21 @@ public class BulletPlayer : MonoBehaviour {
 
     // Instance reusing
     public bool Activate(bool isActivating) {
-        if (_isActive && isActivating) return false;
+        if (isActivating) {
+            if (_isActive) return false;
+            transform.position = PlayerData.transformPlayer.position + PlayerAttacks.Instance.spawnPointShotAttack;
+            _rbBullet.velocity = new Vector2(PlayerAttacks.Instance.speedShotAttack * (PlayerData.srPlayer.flipX ? -1 : 1), 0);
+            CancelInvoke(nameof(AutoDeactivate));
+            Invoke(nameof(AutoDeactivate), PlayerAttacks.Instance.timeToDespawnShotAttack);
+        }
         _isActive = isActivating;
         _rbBullet.simulated = isActivating;
         _srBullet.enabled = isActivating;
-        if (isActivating) {
-            transform.position = PlayerData.transformPlayer.position + PlayerAttacks.Instance.spawnPointShotAttack;
-            _rbBullet.velocity = new Vector2(PlayerAttacks.Instance.speedShotAttack * (PlayerData.srPlayer.flipX ? -1 : 1), 0);
-            StopAllCoroutines();
-            StartCoroutine(AutoDeactivate());
-        }
         return true;
     }
 
-    private IEnumerator AutoDeactivate() {
-        yield return new WaitForSeconds(PlayerAttacks.Instance.timeToDespawnShotAttack);
-
+    private void AutoDeactivate() {
         if(_isActive) Activate(false);
-
     }
 
 }

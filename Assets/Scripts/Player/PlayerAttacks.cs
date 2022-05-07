@@ -34,33 +34,39 @@ public class PlayerAttacks : MonoBehaviour {
     private void Start() {
         GameObject bulletInstancesParent = new GameObject("BulletInstancesParent");
         _instancesShotAttack = new BulletPlayer[_instanceAmountShotAttack];
-        for(int i = 0; i < _instanceAmountShotAttack; i++) _instancesShotAttack[i] = Instantiate(_prefabShotAttack, Vector3.zero, Quaternion.identity, bulletInstancesParent.transform).GetComponent<BulletPlayer>();
+        for (int i = 0; i < _instanceAmountShotAttack; i++) _instancesShotAttack[i] = Instantiate(_prefabShotAttack, Vector3.zero, Quaternion.identity, bulletInstancesParent.transform).GetComponent<BulletPlayer>();
     }
 
     private void Update() {
         if (PlayerInputs.canInput) {
-            if (PlayerInputs.shotAttackKeyPressed) StartCoroutine(ShotAttackInstantiate());
-            else if (PlayerInputs.streamAttackKeyPressed) StartCoroutine(StreamAttackInstantiate());
+            if (PlayerInputs.shotAttackKeyPressed > 0) Invoke(nameof(StartShotAttackAnimation), 0);
+            else if (PlayerInputs.streamAttackKeyPressed > 0) Invoke(nameof(StartStreamAttackAnimation), 0);
         }
-        PlayerInputs.shotAttackKeyPressed = false;
-        PlayerInputs.streamAttackKeyPressed = false;
     }
 
-    private IEnumerator ShotAttackInstantiate() {
+    private void StartShotAttackAnimation() {
+        PlayerInputs.shotAttackKeyPressed = 0;
         // TO DO: Make so that when shooting while input in the oposite direction, stop movement first, turn around, then shot in the input direction
-        PlayerData.animatorPlayer.SetTrigger("ShotAttacking");
+        PlayerData.animatorPlayer.SetTrigger("ShotAttacking"); // REMAKE
 
-        yield return new WaitForSeconds(_delayToSpawnShotAttack);
-
-        for (int i = 0; i < _instanceAmountShotAttack; i++) if (_instancesShotAttack[i].Activate(true)) yield break; // ???
+        Invoke(nameof(ShotAttackInstantiate), _delayToSpawnShotAttack);
+        // Invoke function to stop animation ?
     }
 
-    private IEnumerator StreamAttackInstantiate() {
+    private void ShotAttackInstantiate() {
+        for (int i = 0; i < _instanceAmountShotAttack; i++) if (_instancesShotAttack[i].Activate(true)) return; // ???
+        Debug.LogWarning("Bullet could not be instantiated: Number of bullets would exceed pool's quantity");
+    }
+
+    private void StartStreamAttackAnimation() {
+        PlayerInputs.streamAttackKeyPressed = 0;
         // TO DO: Make so that when spitting while input in the oposite direction, stop movement first, then shot in the input direction
-        PlayerData.animatorPlayer.SetTrigger("StreamAttacking");
+        PlayerData.animatorPlayer.SetTrigger("StreamAttacking"); // REMAKE
 
-        yield return new WaitForSeconds(_delayToSpawnStreamAttack);
+        Invoke(nameof(StreamAttackInstantiate), _delayToSpawnStreamAttack);
+    }
 
+    private void StreamAttackInstantiate() {
         // Make instance reuse
         GameObject stream = Instantiate(_prefabStreamAttack, transform.position + _spawnPointStreamAttack, Quaternion.identity);
         stream.GetComponent<Rigidbody2D>().velocity = new Vector2(_speedStreamAttack * (PlayerData.srPlayer.flipX ? -1 : 1), 0);

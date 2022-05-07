@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyData : MonoBehaviour {
 
     [Header("Instance Reusing")]
+
     private bool _isActive = false;
 
     [Header("Components")]
 
-    [System.NonSerialized] public Rigidbody2D rbEnemy;
-    [System.NonSerialized] public Animator animatorEnemy;
-    [System.NonSerialized] public SpriteRenderer srEnemy;
+    [HideInInspector] public Rigidbody2D rbEnemy;
+    [HideInInspector] public SpriteRenderer srEnemy;
+    [HideInInspector] public Animator animatorEnemy; // REMAKE
 
     [Header("Stats")]
 
@@ -23,9 +24,6 @@ public class EnemyData : MonoBehaviour {
         animatorEnemy = GetComponent<Animator>();
         srEnemy = GetComponent<SpriteRenderer>();
     }
-    private void Start() {
-        _healthPoints = _maxHealthPoints;
-    }
 
     // Instance reusing
     public bool Activate(bool isActivating) {
@@ -34,6 +32,7 @@ public class EnemyData : MonoBehaviour {
         rbEnemy.simulated = isActivating;
         srEnemy.enabled = isActivating;
         if (isActivating) {
+            _healthPoints = _maxHealthPoints;
             // Set position
         }
         return true;

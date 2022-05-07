@@ -16,5 +16,5 @@ public class InputType : ScriptableObject {
 public enum InputPreset {
     ArrowMovement,
     WasdMovement,
-    JoyStick
+    Personalized
 };
