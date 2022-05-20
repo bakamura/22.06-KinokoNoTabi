@@ -9,5 +9,6 @@ public class CustomAnimation : ScriptableObject {
     [Tooltip("Number of frames/second")]
     public float speed = 1;
     public bool repeat = false;
+    public int repeatFrom = 0;
 
 }

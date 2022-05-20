@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool _hasDoubleJumped = false;
     [SerializeField] private float _doubleJumpMovementSpeedMultiplier;
 
+    private float jumpGroundCheckDelay = 0.2f;
+
     private void Awake() {
         if (Instance == null) Instance = this;
         else if (Instance != this) Destroy(gameObject);
@@ -31,7 +33,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update() { // Maybe change for an invokeRepeating?
         // Jumping
-        _isGrounded = Physics2D.OverlapBox(transform.position - new Vector3(0, transform.lossyScale.y / 2, 0), _groundCheckArea, 0, _groundLayer);
+        if (jumpGroundCheckDelay < 0) _isGrounded = Physics2D.OverlapBox(transform.position - new Vector3(0, transform.lossyScale.y / 2, 0), _groundCheckArea, 0, _groundLayer);
+        else jumpGroundCheckDelay -= Time.deltaTime;
         if (_isGrounded) {
             _hasDoubleJumped = false;
             _movementSpeedMultiplier = 1;
@@ -40,19 +43,21 @@ public class PlayerMovement : MonoBehaviour {
             if (_isGrounded) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
-                PlayerAnimations.Instance.ChangeAnimation("PlayerJump"); // Anim
+                PlayerAnimations.Instance.ChangeAnimation("PlayerJump"); // Animations
+                jumpGroundCheckDelay = 0.2f;
+                _isGrounded = false;
             }
             else if (!_hasDoubleJumped && PlayerData.Instance.doubleJumpUpgrade) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
                 _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
                 _hasDoubleJumped = true;
-                PlayerAnimations.Instance.ChangeAnimation("PlayerDoubleJump"); // Anim
+                PlayerAnimations.Instance.ChangeAnimation("PlayerDoubleJump"); // Animations
             }
         }
 
         // NOTE: if player hits platform before falling, might not work properly
-        if (PlayerData.rbPlayer.velocity.y <= -0.1f) {
+        if (PlayerData.rbPlayer.velocity.y <= -0.1f && _isGrounded) {
             if ((PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerJump" || PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerDoubleJump") && _isGrounded) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
         }
         if (PlayerData.rbPlayer.velocity.y >= -0.1f) PlayerData.srPlayer.flipY = false;
@@ -66,11 +71,13 @@ public class PlayerMovement : MonoBehaviour {
         }
         PlayerData.rbPlayer.velocity = new Vector2(_currentSpeed * _movementSpeed * _movementSpeedMultiplier, PlayerData.rbPlayer.velocity.y);
 
-        // Settings Animations REMAKE
+        // Animations
         if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
-        if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
-        else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerAnimations.Instance.ChangeAnimation("PlayerBreak"); // Anim
-        else PlayerAnimations.Instance.ChangeAnimation("PlayerMove");
+        if (_isGrounded) {
+            if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
+            else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerAnimations.Instance.ChangeAnimation("PlayerBreak"); // Anim
+            else PlayerAnimations.Instance.ChangeAnimation("PlayerMove");
+        }
     }
 
 #if UNITY_EDITOR

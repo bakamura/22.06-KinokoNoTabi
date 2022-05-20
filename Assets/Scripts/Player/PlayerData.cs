@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerData : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class PlayerData : MonoBehaviour {
 
     [SerializeField] private float _maxHealthPoints;
     private static float _healthPoints;
+
+    [SerializeField] private float _delayToRestart;
 
     [Header("Upgrades")]
 
@@ -40,12 +43,17 @@ public class PlayerData : MonoBehaviour {
     public void TakeDamage(float damage, Vector3 knockBack) {
         _healthPoints -= damage;
         if (_healthPoints < 0) {
-            // Player death anim/restart
+            PlayerAnimations.Instance.ChangeAnimation("PlayerDeath");
+            Invoke(nameof(RestartScene), _delayToRestart);
         }
         else {
             // Remember to stop other velocity scripts
             rbPlayer.velocity = knockBack;
         }
+    }
+
+    private void RestartScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Evitar colliders, desligar objetos distantes
