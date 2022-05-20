@@ -23,9 +23,9 @@ public class PlayerData : MonoBehaviour {
     [Header("Upgrades")]
 
     // Later, make them all [HideInInspector]
-    public bool doubleJumpUpgrade = false;
-    public bool healthPointsUpgrade = false;
-    public bool poisonBlowUpgrade = false;
+    public bool doubleJumpUpgrade;
+    public bool healthPointsUpgrade;
+    public bool poisonBlowUpgrade;
 
     private void Awake() {
         if (Instance == null) Instance = this;
@@ -37,6 +37,12 @@ public class PlayerData : MonoBehaviour {
     }
 
     private void Start() {
+        SaveData data = SaveSystem.LoadProgress(GameManager.currentSave);
+
+        doubleJumpUpgrade = data.doubleJumpUpgrade;
+        healthPointsUpgrade = data.healthPointsUpgrade;
+        poisonBlowUpgrade = data.poisonBlowUpgrade;
+    
         _healthPoints = _maxHealthPoints;
     }
 
