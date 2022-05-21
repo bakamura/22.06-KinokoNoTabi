@@ -15,17 +15,12 @@ public class PlayerData : MonoBehaviour {
 
     [Header("Combat Stats")]
 
-    [SerializeField] private float _maxHealthPoints;
-    private static float _healthPoints;
+    [SerializeField] private int _maxHealthPoints;
+    [SerializeField] private int _healthUpgradeBonusPoints;
+    private static int _healthPoints;
+    [SerializeField] private float _kbDuration;
 
     [SerializeField] private float _delayToRestart;
-
-    [Header("Upgrades")]
-
-    // Later, make them all [HideInInspector]
-    public bool doubleJumpUpgrade;
-    public bool healthPointsUpgrade;
-    public bool poisonBlowUpgrade;
 
     private void Awake() {
         if (Instance == null) Instance = this;
@@ -37,30 +32,31 @@ public class PlayerData : MonoBehaviour {
     }
 
     private void Start() {
-        SaveData data = SaveSystem.LoadProgress(GameManager.currentSave);
-
-        doubleJumpUpgrade = data.doubleJumpUpgrade;
-        healthPointsUpgrade = data.healthPointsUpgrade;
-        poisonBlowUpgrade = data.poisonBlowUpgrade;
-    
-        _healthPoints = _maxHealthPoints;
+        _healthPoints = _maxHealthPoints + (GameManager.healthPointsUpgrade ? _healthUpgradeBonusPoints : 0);
+        UserInterface.Instance.SetHealthUI(_healthPoints);
     }
 
-    public void TakeDamage(float damage, Vector3 knockBack) {
+    public void TakeDamage(int damage, Vector3 knockBack) {
         _healthPoints -= damage;
+        UserInterface.Instance.SetHealthUI(_healthPoints);
         if (_healthPoints < 0) {
             PlayerAnimations.Instance.ChangeAnimation("PlayerDeath");
             Invoke(nameof(RestartScene), _delayToRestart);
         }
         else {
-            // Remember to stop other velocity scripts
+            PlayerMovement.Instance.canMove = false;
             rbPlayer.velocity = knockBack;
+            Invoke(nameof(StopKnockback), _kbDuration);
         }
+    }
+
+    public void StopKnockback() {
+        rbPlayer.velocity = Vector2.zero;
+        PlayerMovement.Instance.canMove = false;
     }
 
     private void RestartScene() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Evitar colliders, desligar objetos distantes
 }

@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public static PlayerMovement Instance { get; private set; }
 
+    public bool canMove = true;
+
     [Header("Run Stats")]
 
     [SerializeField] private float _movementSpeed;
@@ -47,7 +49,7 @@ public class PlayerMovement : MonoBehaviour {
                 jumpGroundCheckDelay = 0.2f;
                 _isGrounded = false;
             }
-            else if (!_hasDoubleJumped && PlayerData.Instance.doubleJumpUpgrade) {
+            else if (!_hasDoubleJumped && GameManager.doubleJumpUpgrade) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
                 _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
@@ -57,26 +59,28 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         // NOTE: if player hits platform before falling, might not work properly
-        if (PlayerData.rbPlayer.velocity.y <= -0.1f && _isGrounded) {
+        if (PlayerData.rbPlayer.velocity.y <= -0.05f && _isGrounded) {
             if ((PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerJump" || PlayerAnimations.Instance.GetCurrentAnimationName() == "PlayerDoubleJump") && _isGrounded) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
         }
         if (PlayerData.rbPlayer.velocity.y >= -0.1f) PlayerData.srPlayer.flipY = false;
     }
 
     private void FixedUpdate() {
-        // Horizontal Movement
-        if (_currentSpeed != PlayerInputs.horizontalAxis) {
-            _currentSpeed += Mathf.Sign(PlayerInputs.horizontalAxis - _currentSpeed) / _damping;
-            if (PlayerInputs.horizontalAxis == 0 && Mathf.Abs(_currentSpeed) < 0.05f) _currentSpeed = 0;
-        }
-        PlayerData.rbPlayer.velocity = new Vector2(_currentSpeed * _movementSpeed * _movementSpeedMultiplier, PlayerData.rbPlayer.velocity.y);
+        if (canMove) {
+            // Horizontal Movement
+            if (_currentSpeed != PlayerInputs.horizontalAxis) {
+                _currentSpeed += Mathf.Sign(PlayerInputs.horizontalAxis - _currentSpeed) / _damping;
+                if (PlayerInputs.horizontalAxis == 0 && Mathf.Abs(_currentSpeed) < 0.05f) _currentSpeed = 0;
+            }
+            PlayerData.rbPlayer.velocity = new Vector2(_currentSpeed * _movementSpeed * _movementSpeedMultiplier, PlayerData.rbPlayer.velocity.y);
 
-        // Animations
-        if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
-        if (_isGrounded) {
-            if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle"); // Anim
-            else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerAnimations.Instance.ChangeAnimation("PlayerBreak"); // Anim
-            else PlayerAnimations.Instance.ChangeAnimation("PlayerMove");
+            // Animations
+            if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
+            if (_isGrounded) {
+                if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerAnimations.Instance.ChangeAnimation("PlayerIdle");
+                else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerAnimations.Instance.ChangeAnimation("PlayerBreak");
+                else PlayerAnimations.Instance.ChangeAnimation("PlayerMove");
+            }
         }
     }
 

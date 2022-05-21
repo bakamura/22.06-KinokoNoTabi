@@ -40,7 +40,7 @@ public class PlayerAttacks : MonoBehaviour {
     private void Update() {
         if (PlayerInputs.canInput) {
             if (PlayerInputs.shotAttackKeyPressed > 0) Invoke(nameof(StartShotAttackAnimation), 0);
-            else if (PlayerInputs.streamAttackKeyPressed > 0) Invoke(nameof(StartStreamAttackAnimation), 0);
+            else if (PlayerInputs.streamAttackKeyPressed > 0 && GameManager.poisonBlowUpgrade) Invoke(nameof(StartStreamAttackAnimation), 0);
         }
     }
 

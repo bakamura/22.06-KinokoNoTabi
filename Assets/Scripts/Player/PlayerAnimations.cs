@@ -26,8 +26,9 @@ public class PlayerAnimations : MonoBehaviour {
             for (int i = 0; i < _animations.Length; i++) if (_animations[i].name == name) {
                     _currentAnimation = i;
                     _currentFrame = 0;
+                    CancelInvoke(nameof(ChangeFrame));
                     InvokeRepeating(nameof(ChangeFrame), 0, 1f / _animations[i].speed);
-                    Debug.Log("Changed Animation to: " + GetCurrentAnimationName());
+                    //Debug.Log("Changed Animation to: " + GetCurrentAnimationName());
                     return;
                 }
             Debug.LogError("Couldn't find animation named " + name);
