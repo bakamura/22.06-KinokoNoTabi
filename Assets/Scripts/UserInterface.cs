@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UserInterface : MonoBehaviour {
 
@@ -22,9 +23,9 @@ public class UserInterface : MonoBehaviour {
     [Header("Settings Menu")]
 
     [SerializeField] private CanvasGroup _settingsCanvas;
-    [SerializeField] private Slider _masterVolSlider;
-    [SerializeField] private Slider _musicVolSlider;
-    [SerializeField] private Slider _SfxVolSlider;
+    [SerializeField] private SliderData _masterVol;
+    [SerializeField] private SliderData _musicVol;
+    [SerializeField] private SliderData _sfxVol;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer _mixer;
@@ -72,8 +73,10 @@ public class UserInterface : MonoBehaviour {
     }
 
     public void SetVolume(int volToChange) {
-        _mixer.SetFloat("MusicVol", Mathf.Log10(_currentSliderValue) * 20); // Slider lowest must be 0.001 !!!
-        GetManagerVol(volToChange) = Mathf.Round(GetSliderVol(volToChange).value * 1000f) / 1000f;
+        SliderData slider = GetSliderVol(volToChange);
+        _mixer.SetFloat(slider.name, Mathf.Log10(_currentSliderValue) * 20); // Slider lowest must be 0.001 !!!
+        GetManagerVol(volToChange) = Mathf.Round(slider.slider.value * 1000f) / 1000f;
+        slider.valueText.text = (slider.slider.value * 100f).ToString("F0");
     }
 
     private ref float GetManagerVol(int volVarID) {
@@ -87,14 +90,14 @@ public class UserInterface : MonoBehaviour {
         }
     }
 
-    private Slider GetSliderVol(int volVarID) {
+    private SliderData GetSliderVol(int volVarID) {
         switch (volVarID) {
-            case 0: return _masterVolSlider;
-            case 1: return _musicVolSlider;
-            case 2: return _SfxVolSlider;
+            case 0: return _masterVol;
+            case 1: return _musicVol;
+            case 2: return _sfxVol;
             default:
                 Debug.Log("Error Fetching Volume Slider Value, used MasterVolSlider Instead");
-                return _masterVolSlider;
+                return _masterVol;
         }
     }
 
@@ -107,4 +110,11 @@ public class UserInterface : MonoBehaviour {
         canvas.interactable = isActive;
         canvas.blocksRaycasts = isActive;
     }
+}
+
+[System.Serializable]
+public class SliderData {
+    public string name;
+    public Slider slider;
+    public TextMeshProUGUI valueText;
 }
