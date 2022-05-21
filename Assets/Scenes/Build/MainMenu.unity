@@ -1006,10 +1006,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a3581e5dd5aaf4799a8edc769c014a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCanvas: {fileID: 0}
-  _savesCanvas: {fileID: 0}
-  _settingsCanvas: {fileID: 0}
-  _quitCanvas: {fileID: 0}
+  _mainCanvas: {fileID: 1951169742}
+  _savesCanvas: {fileID: 1341750716}
+  _settingsCanvas: {fileID: 2130724461}
+  _quitCanvas: {fileID: 446904743}
 --- !u!114 &1605781456
 MonoBehaviour:
   m_ObjectHideFlags: 0
