@@ -1061,8 +1061,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 376123678}
-        m_TargetAssemblyTypeName: UserInterface, Assembly-CSharp
+      - m_Target: {fileID: 376123679}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 3
         m_Arguments:
@@ -1086,6 +1086,7 @@ GameObject:
   - component: {fileID: 376123675}
   - component: {fileID: 376123674}
   - component: {fileID: 376123678}
+  - component: {fileID: 376123679}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1197,6 +1198,19 @@ MonoBehaviour:
   _pauseCanvas: {fileID: 839875115}
   _pauseMenuKey: 27
   _settingsCanvas: {fileID: 1705873090}
+--- !u!114 &376123679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376123673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af61ef7d235090a479ea3b9a137da6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 7c5b9c061ae038a4da861ecfd791bef9, type: 2}
   _masterVol:
     name: Master
     slider: {fileID: 370957888}
@@ -1209,7 +1223,6 @@ MonoBehaviour:
     name: SFX
     slider: {fileID: 1221008786}
     valueText: {fileID: 1152134695}
-  _mixer: {fileID: 24100000, guid: 7c5b9c061ae038a4da861ecfd791bef9, type: 2}
 --- !u!1 &385818443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3871,14 +3884,14 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 376123678}
-        m_TargetAssemblyTypeName: UserInterface, Assembly-CSharp
+      - m_Target: {fileID: 376123679}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4302,14 +4315,14 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 376123678}
-        m_TargetAssemblyTypeName: UserInterface, Assembly-CSharp
+      - m_Target: {fileID: 376123679}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

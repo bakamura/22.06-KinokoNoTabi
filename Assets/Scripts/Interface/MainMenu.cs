@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -31,19 +32,16 @@ public class MainMenu : MonoBehaviour {
         OpenMenu(_mainCanvas);
     }
 
-    private void Update() {
-        
-    }
-
-    private void FixedUpdate() {
-        
-    }
-
     public void OpenMenu(CanvasGroup menuToOpen) {
         UserInterface.ActivateCanvas(_mainCanvas, menuToOpen == _mainCanvas);
         UserInterface.ActivateCanvas(_savesCanvas, menuToOpen == _savesCanvas);
         UserInterface.ActivateCanvas(_settingsCanvas, menuToOpen == _settingsCanvas);
         UserInterface.ActivateCanvas(_quitCanvas, menuToOpen == _quitCanvas);
+    }
+
+    public void EnterSaveBtn(int saveID) {
+        GameManager.currentSave = saveID;
+        SceneManager.LoadScene(1);
     }
 
     public void QuitBtn() {
