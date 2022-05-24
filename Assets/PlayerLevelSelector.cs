@@ -36,7 +36,8 @@ public class PlayerLevelSelector : MonoBehaviour {
         if (_currentSpeed.x != _movementDirection.x || _currentSpeed.y != _movementDirection.y) {
             _currentSpeed.x += Mathf.Sign(_movementDirection.x - _currentSpeed.x) / _damping;
             _currentSpeed.y += Mathf.Sign(_movementDirection.y - _currentSpeed.y) / _damping;
-            if ((_movementDirection.x == 0 && Mathf.Abs(_currentSpeed.x) < 0.05f) && (_movementDirection.y == 0 && Mathf.Abs(_currentSpeed.y) < 0.05f)) _currentSpeed = Vector2.zero;
+            _currentSpeed = new Vector2((_movementDirection.x == 0 && Mathf.Abs(_currentSpeed.x) < 0.05f) ? 0 : _currentSpeed.x, 
+                                        (_movementDirection.y == 0 && Mathf.Abs(_currentSpeed.y) < 0.05f) ? 0 : _currentSpeed.y);
         }
         _rb.velocity = _movementSpeed * _currentSpeed;
     }

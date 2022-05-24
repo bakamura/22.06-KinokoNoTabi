@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class LevelPopUpWindow : MonoBehaviour {
+
+    public static LevelPopUpWindow Instance { get; private set; }
+
+    private RectTransform _rectTransform;
+    public Image levelImage;
+    [SerializeField] private TextMeshProUGUI _levelText;
+    private float _currentPopUpTime = 0;
+    [SerializeField] private float _popUpDuration;
+    [SerializeField] private float _invokeRefreshRate = 0.05f;
+    private float _popUpSymbol = 1;
+
+    private void Awake() {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
+
+        _rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Start() {
+        _rectTransform.localScale = Vector2.zero;
+    }
+
+    public void StartPopUpAnim(Vector3 position, Sprite image, string levelName) {
+        Debug.Log("Up");
+        _rectTransform.position = position;
+        levelImage.sprite = image;
+        _levelText.text = levelName;
+
+        _currentPopUpTime = 0;
+        _popUpSymbol = 1;
+        InvokeRepeating(nameof(PopUpAnim), 0, _invokeRefreshRate);
+    }
+
+    public void StartPopOutAnim() {
+        Debug.Log("Out");
+        _currentPopUpTime = 1;
+        _popUpSymbol = -1;
+        InvokeRepeating(nameof(PopUpAnim), 0, _invokeRefreshRate);
+    }
+
+    private void PopUpAnim() {
+        _currentPopUpTime += _popUpSymbol * _invokeRefreshRate / _popUpDuration;
+        _rectTransform.localScale = new Vector2(Mathf.Clamp((_currentPopUpTime - 0.5f) * 2, 0.1f, 1), Mathf.Clamp(_currentPopUpTime * 2, 0, 1));
+        if (_popUpSymbol == 1 && _currentPopUpTime >= 1) CancelInvoke(nameof(PopUpAnim));
+        else if (_popUpSymbol == -1 && _currentPopUpTime < 0) {
+            CancelInvoke(nameof(PopUpAnim));
+            levelImage = null;
+            _rectTransform.localScale = Vector2.zero;
+        }
+    }
+}
