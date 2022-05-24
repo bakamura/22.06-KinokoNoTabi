@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerLevelSelector : MonoBehaviour {
 
+    public static PlayerLevelSelector Instance { get; private set; }
+
     [Header("Inputs")]
 
     [SerializeField] private KeyCode leftKey;
@@ -15,11 +17,14 @@ public class PlayerLevelSelector : MonoBehaviour {
     [Header("Info")]
 
     [SerializeField] private float _movementSpeed;
-    private float _currentSpeed;
+    private Vector2 _currentSpeed;
     [SerializeField] private float _damping;
     private Rigidbody2D _rb;
 
     private void Start() {
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
+
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -28,10 +33,11 @@ public class PlayerLevelSelector : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (_currentSpeed != _movementDirection.x) {
-            _currentSpeed += Mathf.Sign(_movementDirection.x - _currentSpeed) / _damping;
-            if (_movementDirection.x == 0 && Mathf.Abs(_currentSpeed) < 0.05f) _currentSpeed = 0;
+        if (_currentSpeed.x != _movementDirection.x || _currentSpeed.y != _movementDirection.y) {
+            _currentSpeed.x += Mathf.Sign(_movementDirection.x - _currentSpeed.x) / _damping;
+            _currentSpeed.y += Mathf.Sign(_movementDirection.y - _currentSpeed.y) / _damping;
+            if ((_movementDirection.x == 0 && Mathf.Abs(_currentSpeed.x) < 0.05f) && (_movementDirection.y == 0 && Mathf.Abs(_currentSpeed.y) < 0.05f)) _currentSpeed = Vector2.zero;
         }
-        _rb.velocity = _movementDirection * _movementSpeed * _currentSpeed;
+        _rb.velocity = _movementSpeed * _currentSpeed;
     }
 }
