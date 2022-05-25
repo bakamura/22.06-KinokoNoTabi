@@ -29,7 +29,7 @@ public class SaveData {
     public float MusicVol = 0.5f;
     public float SfxVol = 0.5f;
 
-    public SaveData(PlayerData playerData) {
+    public SaveData() {
         // World 
         world1Unlocked = GameManager.world1Unlocked;
         world2Unlocked = GameManager.world2Unlocked;
@@ -42,6 +42,8 @@ public class SaveData {
         world3Cleared = GameManager.world3Cleared;
         world4Cleared = GameManager.world4Cleared;
         world5Cleared = GameManager.world5Cleared;
+
+        levelPosition = GameManager.levelPosition;
 
         // Player
         doubleJumpUpgrade = GameManager.doubleJumpUpgrade;

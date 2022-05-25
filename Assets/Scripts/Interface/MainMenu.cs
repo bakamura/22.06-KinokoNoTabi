@@ -40,7 +40,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void EnterSaveBtn(int saveID) {
-        GameManager.currentSave = saveID;
+        SaveSystem.LoadProgress(saveID);
         SceneManager.LoadScene(1);
     }
 
