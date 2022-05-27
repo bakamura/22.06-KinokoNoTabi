@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     [Header("Jump Stats")]
 
     [SerializeField] private float _jumpStrenght;
+    [SerializeField] private Vector3 _groundCheckOffset;
     [Tooltip("Size of a box that stays at the middle-bottom of the player, checking if it's colliding with ground")]
     [SerializeField] private Vector2 _groundCheckArea;
     [SerializeField] private LayerMask _groundLayer;
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update() { // Maybe change for an invokeRepeating?
         // Jumping
-        if (jumpGroundCheckDelay < 0) _isGrounded = Physics2D.OverlapBox(transform.position - new Vector3(0, transform.lossyScale.y / 2, 0), _groundCheckArea, 0, _groundLayer);
+        if (jumpGroundCheckDelay < 0) _isGrounded = Physics2D.OverlapBox(transform.position + _groundCheckOffset, _groundCheckArea, 0, _groundLayer);
         else jumpGroundCheckDelay -= Time.deltaTime;
         if (_isGrounded) {
             _hasDoubleJumped = false;
@@ -87,7 +88,7 @@ public class PlayerMovement : MonoBehaviour {
 #if UNITY_EDITOR
     private void OnDrawGizmos() {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position - new Vector3(0, transform.lossyScale.y / 2, 0), _groundCheckArea);
+        Gizmos.DrawWireCube(transform.position + _groundCheckOffset, _groundCheckArea);
     }
 #endif
 }

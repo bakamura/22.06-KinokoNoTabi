@@ -57,10 +57,6 @@ public class PlayerLevelSelector : MonoBehaviour {
             Invoke(nameof(GoToLevel), _delayToLoadLevel);
             _delayToLoadLevel = -1;
         }
-
-        // Test
-        Vector3 direction = transform.position - Camera.main.transform.position; // Normalize?
-        Camera.main.transform.position += new Vector3(direction.x / 4, direction.y / 4, 0);
     }
 
     private void FixedUpdate() {
