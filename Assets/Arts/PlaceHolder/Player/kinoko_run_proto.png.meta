@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: f60c15e34ca1dd34a931c0ae13d34eec
+guid: c3516b0ced76c0141820e3803a427db5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1082426672592899543
-    second: Anim_Kinoko_0
+      213: 3569330523816800380
+    second: kinoko_run_proto_0
   - first:
-      213: 2932354331422507127
-    second: Anim_Kinoko_1
+      213: -5727679359378963239
+    second: kinoko_run_proto_1
   - first:
-      213: 4780042320663688166
-    second: Anim_Kinoko_2
+      213: -1232236844254545528
+    second: kinoko_run_proto_2
   - first:
-      213: -3361674853051028272
-    second: Anim_Kinoko_3
+      213: 3150302772599735468
+    second: kinoko_run_proto_3
+  - first:
+      213: -3037811871186463332
+    second: kinoko_run_proto_4
+  - first:
+      213: 8611966818911592872
+    second: kinoko_run_proto_5
+  - first:
+      213: -7814415835396093373
+    second: kinoko_run_proto_6
+  - first:
+      213: 2366518439118492101
+    second: kinoko_run_proto_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -60,7 +72,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -100,7 +112,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,23 +135,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anim_Kinoko_0
+      name: kinoko_run_proto_0
       rect:
         serializedVersion: 2
         x: 0
@@ -147,20 +147,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      pivot: {x: 0.5, y: 0.28125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ddce43e25d850f00800000000000000
-      internalID: 1082426672592899543
+      spriteID: c703f06433fc88130800000000000000
+      internalID: 3569330523816800380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_Kinoko_1
+      name: kinoko_run_proto_1
       rect:
         serializedVersion: 2
         x: 32
@@ -168,20 +168,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      pivot: {x: 0.5, y: 0.28125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77044086ab0d1b820800000000000000
-      internalID: 2932354331422507127
+      spriteID: 9d441ec18f13380b0800000000000000
+      internalID: -5727679359378963239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_Kinoko_2
+      name: kinoko_run_proto_2
       rect:
         serializedVersion: 2
         x: 64
@@ -189,20 +189,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      pivot: {x: 0.5, y: 0.28125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e33e763a2f165240800000000000000
-      internalID: 4780042320663688166
+      spriteID: 8893f0b6e1736eee0800000000000000
+      internalID: -1232236844254545528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Anim_Kinoko_3
+      name: kinoko_run_proto_3
       rect:
         serializedVersion: 2
         x: 96
@@ -210,14 +210,98 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      pivot: {x: 0.5, y: 0.28125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dca785388ee851d0800000000000000
-      internalID: -3361674853051028272
+      spriteID: ca44cbf3eaf18bb20800000000000000
+      internalID: 3150302772599735468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kinoko_run_proto_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.28125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95577bb23687d5d0800000000000000
+      internalID: -3037811871186463332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kinoko_run_proto_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.28125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a12da2913ad38770800000000000000
+      internalID: 8611966818911592872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kinoko_run_proto_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.28125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a4704433e9d8390800000000000000
+      internalID: -7814415835396093373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kinoko_run_proto_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.28125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c1d1166bff87d020800000000000000
+      internalID: 2366518439118492101
       vertices: []
       indices: 
       edges: []

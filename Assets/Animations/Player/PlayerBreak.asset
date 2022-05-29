@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerBreak
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 2
+  - {fileID: 8611966818911592872, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: 2366518439118492101, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  speed: 6
   repeat: 1
   repeatFrom: 0

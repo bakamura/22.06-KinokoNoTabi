@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: PlayerMove
   m_EditorClassIdentifier: Assembly-CSharp::Animation
   sprites:
-  - {fileID: -9210336849383028390, guid: 5afd5da8b17254245b17887510a6b298, type: 3}
-  - {fileID: 7658617360261186483, guid: 5afd5da8b17254245b17887510a6b298, type: 3}
-  speed: 4
+  - {fileID: 3569330523816800380, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: -5727679359378963239, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: -1232236844254545528, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: 3150302772599735468, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: -3037811871186463332, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: 8611966818911592872, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: -7814415835396093373, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  - {fileID: 2366518439118492101, guid: c3516b0ced76c0141820e3803a427db5, type: 3}
+  speed: 16
   repeat: 1
+  repeatFrom: 0

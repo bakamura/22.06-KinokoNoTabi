@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PlayerIdle
   m_EditorClassIdentifier: Assembly-CSharp::Animation
   sprites:
-  - {fileID: 1082426672592899543, guid: f60c15e34ca1dd34a931c0ae13d34eec, type: 3}
-  - {fileID: 2932354331422507127, guid: f60c15e34ca1dd34a931c0ae13d34eec, type: 3}
-  - {fileID: 4780042320663688166, guid: f60c15e34ca1dd34a931c0ae13d34eec, type: 3}
-  - {fileID: -3361674853051028272, guid: f60c15e34ca1dd34a931c0ae13d34eec, type: 3}
-  speed: 3
+  - {fileID: 6263105478972589940, guid: 951f6c2986044374b9f511093a11ef19, type: 3}
+  - {fileID: 3641701391540919959, guid: 951f6c2986044374b9f511093a11ef19, type: 3}
+  - {fileID: -105253651326380869, guid: 951f6c2986044374b9f511093a11ef19, type: 3}
+  - {fileID: 3394596318434783403, guid: 951f6c2986044374b9f511093a11ef19, type: 3}
+  - {fileID: -7148412884851158887, guid: 951f6c2986044374b9f511093a11ef19, type: 3}
+  speed: 4
   repeat: 1
   repeatFrom: 0
