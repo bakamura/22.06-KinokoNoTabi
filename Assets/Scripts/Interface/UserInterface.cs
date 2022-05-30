@@ -65,6 +65,7 @@ public class UserInterface : MonoBehaviour {
     }
 
     public void QuitLevel() {
+        Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
 

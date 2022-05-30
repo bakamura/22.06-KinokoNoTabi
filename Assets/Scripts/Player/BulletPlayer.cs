@@ -36,7 +36,7 @@ public class BulletPlayer : MonoBehaviour {
     public bool Activate(bool isActivating) {
         if (isActivating) {
             if (_isActive) return false;
-            transform.position = PlayerData.transformPlayer.position + (PlayerAttacks.Instance.spawnPointShotAttack * (PlayerData.srPlayer.flipX ? -1 : 1));
+            transform.position = PlayerData.transformPlayer.position + new Vector3(PlayerAttacks.Instance.spawnPointShotAttack.x * (PlayerData.srPlayer.flipX ? -1 : 1), PlayerAttacks.Instance.spawnPointShotAttack.y);
             _rbBullet.velocity = new Vector2(PlayerAttacks.Instance.speedShotAttack * (PlayerData.srPlayer.flipX ? -1 : 1), 0);
             CancelInvoke(nameof(AutoDeactivate));
             Invoke(nameof(AutoDeactivate), PlayerAttacks.Instance.timeToDespawnShotAttack);
