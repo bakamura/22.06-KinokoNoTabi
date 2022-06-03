@@ -26,7 +26,7 @@ public class PlayerLevelSelector : MonoBehaviour {
     private Vector2 _currentSpeed;
 
     [HideInInspector] public int sceneToLoad = 0;
-    [SerializeField] private float _delayToLoadLevel;
+    public float delayToLoadLevel;
 
     private void Start() {
         if (Instance == null) Instance = this;
@@ -36,7 +36,7 @@ public class PlayerLevelSelector : MonoBehaviour {
 
         LevelEnterPoint[] enterPoints = (LevelEnterPoint[])FindObjectsOfType(typeof(LevelEnterPoint));
         for (int i = 0; i < enterPoints.Length; i++) {
-            if (enterPoints[i].levelNumber[0] == GameManager.levelPosition[0] && enterPoints[i].levelNumber[1] == GameManager.levelPosition[1]) {
+            if (enterPoints[i].levelNumber[1] == GameManager.levelPosition[1] && enterPoints[i].levelNumber[0] == GameManager.levelPosition[0]) {
                 transform.position = enterPoints[i].transform.position;
                 Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
                 break;
@@ -48,14 +48,10 @@ public class PlayerLevelSelector : MonoBehaviour {
 
     private void Update() {
         _movementDirection = new Vector2((Input.GetKey(_leftKey) ? -1 : 0) + (Input.GetKey(_rightKey) ? 1 : 0), (Input.GetKey(_downKey) ? -1 : 0) + (Input.GetKey(_upKey) ? 1 : 0)).normalized;
-        if (_delayToLoadLevel < 0) {
-            _delayToLoadLevel -= Time.deltaTime;
-
-        }
-        else if (Input.GetKeyDown(_enterLevelKey) && sceneToLoad > 1) {
+        if (Input.GetKeyDown(_enterLevelKey) && sceneToLoad > 1) {
             // Create cool transition
-            Invoke(nameof(GoToLevel), _delayToLoadLevel);
-            _delayToLoadLevel = -1;
+            Invoke(nameof(GoToLevel), delayToLoadLevel);
+            delayToLoadLevel = -1;
         }
     }
 

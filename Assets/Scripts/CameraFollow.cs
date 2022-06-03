@@ -15,13 +15,6 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField] private bool _useBounds = false;
     [SerializeField] private Vector2 _boundMin;
     [SerializeField] private Vector2 _boundMax;
-    private Vector3 _boundSize; // Make these in inspector if no better solution was found
-    private Vector3 _boundPivot;
-
-#if UNITY_EDITOR
-    private void Start() {
-    }
-#endif
 
     private void Update() {
         Vector3 targetPos = _follow.position + _followOffset;
@@ -30,6 +23,9 @@ public class CameraFollow : MonoBehaviour {
     }
 
 #if UNITY_EDITOR
+    private Vector3 _boundSize;
+    private Vector3 _boundPivot;
+
     private void OnDrawGizmosSelected() {
         if (_useBounds) {
             _boundPivot = (_boundMax + _boundMin) / 2;

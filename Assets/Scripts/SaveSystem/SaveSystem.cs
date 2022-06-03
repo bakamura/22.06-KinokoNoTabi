@@ -16,13 +16,14 @@ public static class SaveSystem {
         stream.Close();
     }
 
-    public static void LoadProgress(int saveFile) {
+    public static SaveData LoadProgress(int saveFile, bool loadToManager = true) {
         string path = Application.persistentDataPath + "/Progress" + saveFile.ToString() +".data";
         if (File.Exists(path)) {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
             SaveData data = formatter.Deserialize(stream) as SaveData;
+            if(!loadToManager) return data;
 
             GameManager.currentSave = saveFile;
             // World
@@ -53,6 +54,7 @@ public static class SaveSystem {
             stream.Close();
         }
         else Debug.Log("Save file could'nt be found in" + path);
+        return null;
     }
 
     public static void EraseProgress(int saveFile) {
