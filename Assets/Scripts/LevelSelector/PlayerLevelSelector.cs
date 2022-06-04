@@ -62,7 +62,7 @@ public class PlayerLevelSelector : MonoBehaviour {
             _currentSpeed = new Vector2((_movementDirection.x == 0 && Mathf.Abs(_currentSpeed.x) < 0.1f) ? 0 : _currentSpeed.x,
                                         (_movementDirection.y == 0 && Mathf.Abs(_currentSpeed.y) < 0.1f) ? 0 : _currentSpeed.y);
         }
-        _rb.velocity = _movementSpeed * _currentSpeed;
+        _rb.velocity = delayToLoadLevel > 0 ? _movementSpeed * _currentSpeed : Vector2.zero;
     }
 
     private void GoToLevel() {
