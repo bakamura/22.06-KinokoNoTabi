@@ -1449,9 +1449,10 @@ GameObject:
   - component: {fileID: 810425760}
   - component: {fileID: 810425764}
   - component: {fileID: 810425763}
+  - component: {fileID: 810425765}
   - component: {fileID: 810425762}
   m_Layer: 0
-  m_Name: LevelSelectorPlayer
+  m_Name: SelectorPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1531,18 +1532,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 810425759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2a1993b26de0048abfc4a6683ebcd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a14b43eb8df9ab40aa65568076f151d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _leftKey: 276
   _rightKey: 275
   _upKey: 273
   _downKey: 274
-  _enterLevelKey: 122
-  _movementSpeed: 3.5
+  movementLock: 0
+  _movementSpeed: 5
   _damping: 12.5
-  sceneToLoad: 0
-  delayToLoadLevel: 0
 --- !u!58 &810425763
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1580,6 +1579,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &810425765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810425759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0826c889e65aa349b90f48ce9770bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enterLevelKey: 122
+  sceneToLoad: 0
+  delayToLoadLevel: 1
 --- !u!1 &902291947
 GameObject:
   m_ObjectHideFlags: 0
@@ -17920,7 +17934,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
