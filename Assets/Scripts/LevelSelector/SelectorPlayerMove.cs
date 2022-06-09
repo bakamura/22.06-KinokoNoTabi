@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SelectorPlayerMove : MonoBehaviour {
 
-    public static SelectorPlayerMove Instance { get; private set; }
-
     [Header("Inputs")]
 
     [SerializeField] private KeyCode _leftKey;
@@ -15,14 +13,12 @@ public class SelectorPlayerMove : MonoBehaviour {
 
     private Rigidbody2D _rb;
 
-    [HideInInspector] public bool movementLock = false;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _damping;
     private Vector2 _movementDirection;
     private Vector2 _currentSpeed;
 
     private void Awake() {
-        Instance = this;
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -36,7 +32,7 @@ public class SelectorPlayerMove : MonoBehaviour {
             _currentSpeed.y += Mathf.Sign(_movementDirection.y - _currentSpeed.y) / _damping;
             _currentSpeed = new Vector2((_movementDirection.x == 0 && Mathf.Abs(_currentSpeed.x) < 0.05f) ? 0 : _currentSpeed.x, (_movementDirection.y == 0 && Mathf.Abs(_currentSpeed.y) < 0.05f) ? 0 : _currentSpeed.y);
         }
-        _rb.velocity = movementLock ? Vector2.zero : _movementSpeed * _currentSpeed;
+        _rb.velocity = SelectorPlayerData.Instance.delayToLoadLevel > 0 ? _movementSpeed * _currentSpeed : Vector2.zero;
     }
 
 }

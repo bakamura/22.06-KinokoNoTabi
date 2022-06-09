@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DebugScript : MonoBehaviour {
@@ -34,7 +32,7 @@ public class DebugScript : MonoBehaviour {
     public float SfxVol;
 
     private void Start() {
-        SaveSystem.LoadProgress(1); // Debug
+        SaveSystem.LoadProgress(currentSave); // Debug
     }
 
     private void Update() {

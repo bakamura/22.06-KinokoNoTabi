@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,7 +24,7 @@ public class LevelSelectorInterface : MonoBehaviour {
                 UserInterface.ActivateCanvas(_pauseCanvas, false);
                 UserInterface.ActivateCanvas(_settingsCanvas, false);
             }
-            else {
+            else if (SelectorPlayerData.Instance.delayToLoadLevel > 0){
                 Time.timeScale = 0;
                 UserInterface.ActivateCanvas(_pauseCanvas, true);
             }

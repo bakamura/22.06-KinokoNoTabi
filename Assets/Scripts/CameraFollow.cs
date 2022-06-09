@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
@@ -16,7 +14,7 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField] private Vector2 _boundMin;
     [SerializeField] private Vector2 _boundMax;
 
-    private void Update() {
+    private void LateUpdate() {
         Vector3 targetPos = _follow.position + _followOffset;
         targetPos = _useBounds ? new Vector3(Mathf.Clamp(targetPos.x, _boundMin.x, _boundMax.x), Mathf.Clamp(targetPos.y, _boundMin.y, _boundMax.y), -10) : new Vector3(targetPos.x, targetPos.y, -10);
         transform.position = Vector3.Lerp(transform.position, targetPos, Mathf.Clamp01(_followSpeed * Time.deltaTime)); // Naturally Damps

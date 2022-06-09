@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -25,6 +23,7 @@ public class SettingsMenu : MonoBehaviour {
         SliderData slider = GetSliderVol(volToChange);
         _mixer.SetFloat(slider.name, Mathf.Log10(_currentSliderValue) * 20); // Slider lowest must be 0.001 !!!
         GetManagerVol(volToChange) = Mathf.Round(slider.slider.value * 1000f) / 1000f;
+        SaveSystem.SaveProgress(GameManager.currentSave); //
         slider.valueText.text = (slider.slider.value * 100f).ToString("F0");
     }
 

@@ -32,10 +32,12 @@ public class SelectorPlayerData : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(_enterLevelKey) && sceneToLoad > 1) {
-            SelectorPlayerMove.Instance.movementLock = true;
-            delayToLoadLevel = -1;
-            // Create cool transition
             Invoke(nameof(GoToLevel), delayToLoadLevel);
+            delayToLoadLevel = -1;
+        }
+        if (delayToLoadLevel < 0) {
+            // Create cool transition
+            // Possibly by having a large sprite with a hole in the middle, shrinking to the player's pos on level enter
         }
     }
 

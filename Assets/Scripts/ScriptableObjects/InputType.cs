@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "InputPreset")]
@@ -13,6 +11,7 @@ public class InputType : ScriptableObject {
 
 }
 
+// Remove?
 public enum InputPreset {
     ArrowMovement,
     WasdMovement,
