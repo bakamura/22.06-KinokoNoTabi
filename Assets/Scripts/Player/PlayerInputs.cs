@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInputs : MonoBehaviour {
@@ -27,8 +25,7 @@ public class PlayerInputs : MonoBehaviour {
     // TO DO: Make compatible with mobile / joystick (maybe another script will be necessary)
 
     private void Awake() {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        Instance = this;
     }
 
     private void Start() {
@@ -64,4 +61,5 @@ public class PlayerInputs : MonoBehaviour {
                 return inputTypes[0];
         }
     }
+
 }

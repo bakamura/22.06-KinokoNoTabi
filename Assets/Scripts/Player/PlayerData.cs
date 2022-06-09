@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,8 +21,7 @@ public class PlayerData : MonoBehaviour {
     [SerializeField] private float _delayToRestart;
 
     private void Awake() {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        Instance = this;
 
         rbPlayer = GetComponent<Rigidbody2D>();
         srPlayer = GetComponent<SpriteRenderer>();

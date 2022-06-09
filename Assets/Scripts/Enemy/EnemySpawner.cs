@@ -1,12 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class EnemyInfo {
-    [HideInInspector] public EnemyData dataScript; //
-    public EnemyType type;
-    public Vector3 spawnPoint;
-}
 
 public class EnemySpawner : MonoBehaviour {
 
@@ -38,10 +30,21 @@ public class EnemySpawner : MonoBehaviour {
         }
         else if (_isActive) for (int i = 0; i < enemiesToSpawn.Length; i++) enemiesToSpawn[i].dataScript.Activate(false);
     }
+
+}
+
+public class EnemyInfo {
+
+    [HideInInspector] public EnemyData dataScript; //
+    public EnemyType type;
+    public Vector3 spawnPoint;
+
 }
 
 public enum EnemyType {
+
     Kabu, // Akakabu?
     Ninjin,
     Daikon
+
 }

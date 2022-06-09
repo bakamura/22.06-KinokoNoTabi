@@ -50,4 +50,5 @@ public class LevelPopUpWindow : MonoBehaviour {
     public void StartPopOutAnim() {
         _popUpSymbol = -1;
     }
+
 }

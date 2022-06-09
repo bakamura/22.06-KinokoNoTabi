@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicPatrol : MonoBehaviour {
@@ -40,12 +38,11 @@ public class BasicPatrol : MonoBehaviour {
     }
 
 #if UNITY_EDITOR
-
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position - new Vector3(_movementDistance / 2, transform.lossyScale.y / 4, 0), new Vector2(transform.lossyScale.x + _movementDistance, 0.25f));
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.lossyScale.x * _wallDetectDistance * Mathf.Sign(_patrolSpeed));
     }
-
 #endif
+
 }

@@ -69,4 +69,5 @@ public class MainMenu : MonoBehaviour {
     public void QuitBtn() {
         Application.Quit();
     }
+
 }

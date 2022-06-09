@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -30,8 +28,7 @@ public class PlayerMovement : MonoBehaviour {
     private float jumpGroundCheckDelay = 0.2f;
 
     private void Awake() {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        Instance = this;
     }
 
     private void Update() { // Maybe change for an invokeRepeating?
@@ -91,4 +88,5 @@ public class PlayerMovement : MonoBehaviour {
         Gizmos.DrawWireCube(transform.position + _groundCheckOffset, _groundCheckArea);
     }
 #endif
+
 }

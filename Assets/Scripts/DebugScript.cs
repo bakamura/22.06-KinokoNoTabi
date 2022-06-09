@@ -69,4 +69,5 @@ public class DebugScript : MonoBehaviour {
             SaveSystem.EraseProgress(currentSave);
         }
     }
+
 }

@@ -13,7 +13,9 @@ public class InputType : ScriptableObject {
 
 // Remove?
 public enum InputPreset {
+
     ArrowMovement,
     WasdMovement,
     Personalized
+
 };

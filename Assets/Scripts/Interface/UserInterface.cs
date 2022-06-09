@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class UserInterface : MonoBehaviour {
 
@@ -71,11 +70,5 @@ public class UserInterface : MonoBehaviour {
         canvas.interactable = isActive;
         canvas.blocksRaycasts = isActive;
     }
-}
 
-[System.Serializable]
-public class SliderData {
-    public string name;
-    public Slider slider;
-    public TextMeshProUGUI valueText;
 }

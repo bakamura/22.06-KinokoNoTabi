@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
+using TMPro;
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -48,4 +50,14 @@ public class SettingsMenu : MonoBehaviour {
                 return _masterVol;
         }
     }
+
+}
+
+[System.Serializable]
+public class SliderData {
+
+    public string name;
+    public Slider slider;
+    public TextMeshProUGUI valueText;
+
 }

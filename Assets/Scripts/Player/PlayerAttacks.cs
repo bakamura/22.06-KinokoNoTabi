@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour {
@@ -27,8 +25,7 @@ public class PlayerAttacks : MonoBehaviour {
     [SerializeField] private float _delayToSpawnStreamAttack;
 
     private void Awake() {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        Instance = this;
     }
 
     private void Start() {
@@ -71,4 +68,5 @@ public class PlayerAttacks : MonoBehaviour {
         GameObject stream = Instantiate(_prefabStreamAttack, transform.position + _spawnPointStreamAttack, Quaternion.identity);
         stream.GetComponent<Rigidbody2D>().velocity = new Vector2(_speedStreamAttack * (PlayerData.srPlayer.flipX ? -1 : 1), 0);
     }
+
 }

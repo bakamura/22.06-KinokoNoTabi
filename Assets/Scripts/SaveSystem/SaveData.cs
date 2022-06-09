@@ -51,4 +51,5 @@ public class SaveData {
         MusicVol = GameManager.MusicVol;
         SfxVol = GameManager.SfxVol;
     }
+
 }

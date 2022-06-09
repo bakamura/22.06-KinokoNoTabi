@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour {
@@ -45,4 +43,5 @@ public class PlayerAnimations : MonoBehaviour {
     public string GetCurrentAnimationName() {
         return _animations[_currentAnimation].name;
     }
+
 }

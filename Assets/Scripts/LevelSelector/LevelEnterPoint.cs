@@ -20,7 +20,6 @@ public class LevelEnterPoint : MonoBehaviour {
             LevelPopUpWindow.Instance.StartPopOutAnim();
             if(SelectorPlayerData.Instance.delayToLoadLevel > 0) SelectorPlayerData.Instance.sceneToLoad = 0;
         }
-
     }
 
 }
