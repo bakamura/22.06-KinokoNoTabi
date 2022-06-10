@@ -7,6 +7,7 @@ public class LineDetection : MonoBehaviour {
     [Header("Stats")]
 
     [SerializeField] private float _lineDistance;
+    [Tooltip("Assuming enemy is looking to the right")]
     [SerializeField] private Vector2 _lineDirection;
 
     private void Awake() {
@@ -14,8 +15,19 @@ public class LineDetection : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _lineDirection, _lineDistance);
-        if (hit.transform.tag == "Player") _dataScript.playerDetected = _dataScript.playerDetectedDuration;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, _dataScript.srEnemy.flipX ? -_lineDirection : _lineDirection, _lineDistance);
+        for (int i = 0; i < hits.Length; i++) if (hits[i].transform.tag == "Player") {
+                _dataScript.playerDetected = _dataScript.playerDetectedDuration;
+                break;
+            }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        if (Application.isPlaying) Gizmos.DrawLine(transform.position, transform.position + new Vector3(((_dataScript.srEnemy.flipX ? -_lineDirection : _lineDirection) * _lineDistance).x, 
+                                                                                                       ((_dataScript.srEnemy.flipX ? -_lineDirection : _lineDirection) * _lineDistance).y));
+    }
+#endif
 
 }

@@ -21,7 +21,7 @@ public class BasicPatrol : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (_dataScript.playerDetected < 0 && !_dataScript.takingKb) {
+        if (_dataScript.playerDetected <= 0 && !_dataScript.takingKb) {
             if ((_patrolSpeed > 0 && transform.position.x > _startPos) || (_patrolSpeed < 0 && transform.position.x < _startPos - _movementDistance)) {
                 _dataScript.srEnemy.flipX = !_dataScript.srEnemy.flipX;
                 _patrolSpeed *= -1;
@@ -39,8 +39,8 @@ public class BasicPatrol : MonoBehaviour {
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position - new Vector3(_movementDistance / 2, transform.lossyScale.y / 4, 0), new Vector2(transform.lossyScale.x + _movementDistance, 0.25f));
+        Gizmos.color = Color.blue;
+        if (!Application.isPlaying) Gizmos.DrawWireCube(transform.position - new Vector3(_movementDistance / 2, transform.lossyScale.y / 4, 0), new Vector2(transform.lossyScale.x + _movementDistance, 0.25f));
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.lossyScale.x * _wallDetectDistance * Mathf.Sign(_patrolSpeed));
     }
 #endif
