@@ -5,7 +5,7 @@ public class AnimationHandler : MonoBehaviour {
     [Header("Settings")]
 
     [Tooltip("The first animation [0] will be played on start")]
-    [SerializeField] private CustomAnimation[] _animations;
+    [SerializeField] private AnimationI[] _animations;
     private int _currentAnimation = 1;
     private int _currentFrame = 0;
 

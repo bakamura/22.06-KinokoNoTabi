@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "CustomAnimation")]
-public class CustomAnimation : ScriptableObject {
+[CreateAssetMenu(menuName = "AnimationI")]
+public class AnimationI : ScriptableObject {
 
     public Sprite[] sprites;
     [Tooltip("Number of frames/second")]
