@@ -18,6 +18,8 @@ public class BasicPatrol : MonoBehaviour {
 
     private void Start() {
         _startPos = transform.position.x;
+
+        _dataScript.onDetection += CheckDirection; //
     }
 
     private void FixedUpdate() {
@@ -35,6 +37,10 @@ public class BasicPatrol : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void CheckDirection() {
+        _dataScript.srEnemy.flipX = _dataScript.rbEnemy.velocity.x < 0; //
     }
 
 #if UNITY_EDITOR

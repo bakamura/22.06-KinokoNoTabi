@@ -19,8 +19,9 @@ public class KabuAtkPattern : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (_dataScript.playerDetected > 0 && !_dataScript.takingKb) { // Error?
-            _dataScript.rbEnemy.velocity = (PlayerData.Instance.transform.position - transform.position).normalized; //TEST
+        if (_dataScript.playerDetected > 0 && !_dataScript.takingKb) {
+            _dataScript.rbEnemy.velocity = new Vector2((PlayerData.Instance.transform.position - transform.position).x, 0); //TEST
+            _dataScript.srEnemy.flipX = (PlayerData.Instance.transform.position - transform.position).x < 0;
         }
     }
 

@@ -17,6 +17,7 @@ public class LineDetection : MonoBehaviour {
     private void FixedUpdate() {
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, _dataScript.srEnemy.flipX ? -_lineDirection : _lineDirection, _lineDistance);
         for (int i = 0; i < hits.Length; i++) if (hits[i].transform.tag == "Player") {
+                if(_dataScript.playerDetected <= 0) _dataScript.onDetection.Invoke(); //
                 _dataScript.playerDetected = _dataScript.playerDetectedDuration;
                 break;
             }

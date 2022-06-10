@@ -13,6 +13,8 @@ public class EnemyData : MonoBehaviour {
     [HideInInspector] public SpriteRenderer srEnemy;
     [HideInInspector] public UnityAction onActivate;
     [HideInInspector] public UnityAction onDeactivate;
+    [HideInInspector] public UnityAction onDetection;
+    [HideInInspector] public UnityAction onPatrol;
 
     [Header("Stats")]
 
