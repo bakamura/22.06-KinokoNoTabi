@@ -19,7 +19,7 @@ public class EnemyData : MonoBehaviour {
     [Header("Stats")]
 
     [SerializeField] private float _maxHealthPoints;
-    private float _healthPoints;
+    [HideInInspector] public float healthPoints;
 
     [SerializeField] private float _kbDuration;
     [HideInInspector] public bool takingKb = false;
@@ -34,7 +34,7 @@ public class EnemyData : MonoBehaviour {
 
     //Debug
     private void Start() {
-        _healthPoints = _maxHealthPoints;
+        healthPoints = _maxHealthPoints;
     }
 
     private void FixedUpdate() {
@@ -48,21 +48,21 @@ public class EnemyData : MonoBehaviour {
         rbEnemy.simulated = isActivating;
         srEnemy.enabled = isActivating;
         if (isActivating) {
-            onActivate.Invoke();
-            _healthPoints = _maxHealthPoints;
+            if(onActivate != null) onActivate.Invoke();
+            healthPoints = _maxHealthPoints;
             // Set position
         }
-        else onDeactivate.Invoke();
+        else if(onDeactivate != null) onDeactivate.Invoke();
         return true;
     }
 
     public void TakeDamage(float damage, Vector3 knockBack) {
-        _healthPoints -= damage;
-        if (_healthPoints <= 0) {
+        healthPoints -= damage;
+        if (healthPoints <= 0) {
             // Include delay for death animation
             Activate(false);
         }
-        else {
+        else if (_kbDuration != 0){
             // Remember to stop other velocity scripts
             rbEnemy.velocity = knockBack;
             takingKb = true;
