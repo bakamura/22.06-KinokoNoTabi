@@ -8,9 +8,12 @@ public class AvokadoBoss : MonoBehaviour {
 
     [Header("Info")]
 
-    [SerializeField] private Vector3 _jumpPoints;
+    [SerializeField] private Vector3[] _jumpPoints;
+    private int _currentJumpPoint;
     [Tooltip("Jump duration for each phase of the boss")]
     [SerializeField] private float[] _jumpDuration = new float[3];
+    private Vector3 _jumpStartPos;
+    private float _currentJumpPos;
     [Tooltip("Kb assumes player is to the right")]
     [SerializeField] private Vector3 _jumpKb;
 
@@ -18,7 +21,7 @@ public class AvokadoBoss : MonoBehaviour {
     [Tooltip("Kb assumes player is to the right")]
     [SerializeField] private Vector3 _seedKb;
 
-    [SerializeField] private float _actionDelay;
+    [SerializeField] private float[] _actionDelay = new float[3];
 
     [Header("State Control")]
 
@@ -38,7 +41,10 @@ public class AvokadoBoss : MonoBehaviour {
         switch (_state) {
             case 0:
                 State1();
-                if (_dataScript.healthPoints <= _hpAmountToSplit) _state = 1;
+                if (_dataScript.healthPoints <= _hpAmountToSplit) {
+                    _state = 1;
+                    _action = 0;
+                }
                 break;
             case 1:
                 State2();
@@ -50,19 +56,74 @@ public class AvokadoBoss : MonoBehaviour {
         }
     }
 
+    private void GoNextAction() {
+        _action++;
+    }
+
+    // Initial
+
     private void State1() {
         switch(_action) {
+            case 0: // Sets jump info
+                _jumpStartPos = transform.position;
+                _currentJumpPos = 0;
+                _action++;
+                break;
+            case 1: // Jumps
+                _currentJumpPos += Time.deltaTime / _jumpDuration[_state];
+                if (_currentJumpPos >= 1) {
+                    transform.position = _jumpPoints[_currentJumpPoint];
+                    _action++;
+                    Invoke(nameof(GoNextAction), _actionDelay[_state]);
+                }
+                else transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos);
+                break;
+            case 2: break; // Here just for visualization
+            case 3: // Sets jump info
+                _jumpStartPos = transform.position;
+                _currentJumpPos = 0;
+                _action++;
+                break;
+            case 4: // Jumps
+                _currentJumpPos += Time.deltaTime / _jumpDuration[_state];
+                if (_currentJumpPos >= 1) {
+                    transform.position = _jumpPoints[_currentJumpPoint];
+                    _action++;
+                    Invoke(nameof(GoNextAction), _actionDelay[_state]);
+                }
+                else transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos);
+                break;
+            case 5: break; // Here just for visualization
+            case 6: // Shots
+
+                break;
 
         }
     }
+
+    // Divided
+
     private void State2() {
         switch (_action) {
+            case 0:
 
+                break;
+            case 1:
+
+                break;
         }
     }
+
+    // Alone
+
     private void State3() {
         switch (_action) {
+            case 0:
 
+                break;
+            case 1:
+
+                break;
         }
     }
 
