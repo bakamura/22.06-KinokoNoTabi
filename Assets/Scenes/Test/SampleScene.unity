@@ -2202,6 +2202,9 @@ GameObject:
   m_Component:
   - component: {fileID: 945685290}
   - component: {fileID: 945685289}
+  - component: {fileID: 945685293}
+  - component: {fileID: 945685292}
+  - component: {fileID: 945685291}
   m_Layer: 0
   m_Name: AvokadoBoss
   m_TagString: Untagged
@@ -2253,8 +2256,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 0.984375, y: 0.984375}
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2268,12 +2271,76 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945685288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.29, y: 0.85, z: 0}
+  m_LocalPosition: {x: 44.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &945685291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945685288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930d57c8fa4f37b4aa10683e6c9cbf73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpPoints:
+  - {x: 44.5, y: 0.5, z: 0}
+  - {x: 37.5, y: 0.5, z: 0}
+  - {x: 22.5, y: 3.5, z: 0}
+  _jumpDuration:
+  - 3
+  - 2
+  - 1
+  _jumpKb: {x: 0.1, y: 1, z: 0}
+  _seedSpeed: 3
+  _seedKb: {x: 1, y: 0.1, z: 0}
+  _actionDelay:
+  - 2
+  - 1
+  - 0.5
+  _hpAmountToSplit: 15
+--- !u!114 &945685292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945685288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e27e213cde40a488f542b301d08844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rbEnemy: {fileID: 0}
+  srEnemy: {fileID: 0}
+  _maxHealthPoints: 30
+  healthPoints: 0
+  _kbDuration: 0
+  takingKb: 0
+  playerDetectedDuration: -1
+  playerDetected: 0
+--- !u!70 &945685293
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945685288}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
 --- !u!1 &987596338
 GameObject:
   m_ObjectHideFlags: 0
