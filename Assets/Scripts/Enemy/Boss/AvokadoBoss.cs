@@ -45,8 +45,6 @@ public class AvokadoBoss : MonoBehaviour {
     private ActionN _lastMajorAction;
     private Action _stateUpdate;
     private static GameObject[] _instances = new GameObject[2];
-    //private int _state = 0;
-    //private int _action = 0;
 
     private void Awake() {
         _dataScript = GetComponent<EnemyData>();
@@ -140,7 +138,7 @@ public class AvokadoBoss : MonoBehaviour {
             _stateUpdate = null;
             if (_lastMajorAction == ActionN.Jump0) _lastMajorAction = ActionN.Jump1;
             else _lastMajorAction = ActionN.Jump0;
-            GoToNextAction();
+            GoToIdle();
         }
     }
 
@@ -148,6 +146,10 @@ public class AvokadoBoss : MonoBehaviour {
         yield return new WaitForSeconds(_delayToShoot);
 
         _seedInstance.Activate(true);
+
+        yield return new WaitForSeconds(0.1f);
+
+        GoToIdle();
     }
 
 }
