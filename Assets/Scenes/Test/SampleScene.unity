@@ -2293,16 +2293,17 @@ MonoBehaviour:
   - {x: 44.5, y: 0.5, z: 0}
   - {x: 37.5, y: 0.5, z: 0}
   - {x: 22.5, y: 3.5, z: 0}
+  _jumpHeight: 3
   _jumpDuration:
-  - 3
-  - 2
+  - 1.5
   - 1
+  - 0.5
   _jumpKb: {x: 0.1, y: 1, z: 0}
-  _delayToJump: 0
-  _seedPrefab: {fileID: 0}
+  _delayToJump: 0.1
+  _seedPrefab: {fileID: 3580848446386541410, guid: 5ad8878948d51f44fb1fe9e66e24cff5, type: 3}
   _seedSpeed: 3
   _seedKb: {x: 1, y: 0.1, z: 0}
-  _delayToShoot: 0
+  _delayToShoot: 0.1
   _actionDelay:
   - 2
   - 1
@@ -6091,6 +6092,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  isGrounded: 0
   _doubleJumpMovementSpeedMultiplier: 0.75
 --- !u!50 &1377751662
 Rigidbody2D:

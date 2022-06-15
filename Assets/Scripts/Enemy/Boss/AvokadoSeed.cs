@@ -6,8 +6,13 @@ public class AvokadoSeed : MonoBehaviour {
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
 
+    private void Awake() {
+        _sr = GetComponent<SpriteRenderer>();
+    }
+
     private void Start() {
         _avokadoTransform = transform.parent;
+        transform.parent = null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -23,7 +28,7 @@ public class AvokadoSeed : MonoBehaviour {
 
     public void Activate(bool isActive) {
         if (isActive) transform.position = _avokadoTransform.position;
-        _rb.simulated = isActive;
+        //_rb.simulated = isActive;
         _sr.enabled = isActive;
     }
 

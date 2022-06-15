@@ -9,6 +9,7 @@ public class AvokadoBoss : MonoBehaviour {
     [Header("Info")]
 
     [SerializeField] private Vector3[] _jumpPoints;
+    [SerializeField] private float _jumpHeight;
     private int _currentJumpPoint;
     [Tooltip("Jump duration for each phase of the boss Start/Split/Alone")]
     [SerializeField] private float[] _jumpDuration = new float[3];
@@ -134,7 +135,7 @@ public class AvokadoBoss : MonoBehaviour {
 
     private void JumpUpdate() {
         _currentJumpPos += Time.deltaTime / _jumpDuration[(int) _state];
-        if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos);
+        if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * (_currentJumpPos > 0.5f ? 2 - (2 *_currentJumpPos) : _currentJumpPos * 2);
         else {
             transform.position = _jumpPoints[_currentJumpPoint];
             _stateUpdate = null;
@@ -151,6 +152,7 @@ public class AvokadoBoss : MonoBehaviour {
 
         yield return new WaitForSeconds(0.1f);
 
+        _lastMajorAction = ActionN.Shoot;
         GoToIdle();
     }
 
