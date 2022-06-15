@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
     [Tooltip("Size of a box that stays at the middle-bottom of the player, checking if it's colliding with ground")]
     [SerializeField] private Vector2 _groundCheckArea;
     [SerializeField] private LayerMask _groundLayer;
-    private bool _isGrounded;
+    [HideInInspector] public bool isGrounded;
     private bool _hasDoubleJumped = false;
     [SerializeField] private float _doubleJumpMovementSpeedMultiplier;
 
@@ -33,34 +33,28 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update() { // Maybe change for an invokeRepeating?
         // Jumping
-        if (jumpGroundCheckDelay < 0) _isGrounded = Physics2D.OverlapBox(transform.position + _groundCheckOffset, _groundCheckArea, 0, _groundLayer);
+        if (jumpGroundCheckDelay < 0) isGrounded = Physics2D.OverlapBox(transform.position + _groundCheckOffset, _groundCheckArea, 0, _groundLayer);
         else jumpGroundCheckDelay -= Time.deltaTime;
-        if (_isGrounded) {
+        if (isGrounded) {
             _hasDoubleJumped = false;
             _movementSpeedMultiplier = 1;
         }
         if (PlayerInputs.jumpKeyPressed > 0) {
-            if (_isGrounded) {
+            if (isGrounded) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
-                PlayerData.ahPlayer.ChangeAnimation("PlayerJump"); // Animations
+                PlayerData.animPlayer.FromAnyTo("PlayerJump"); // Animations
                 jumpGroundCheckDelay = 0.2f;
-                _isGrounded = false;
+                isGrounded = false;
             }
             else if (!_hasDoubleJumped && GameManager.doubleJumpUpgrade) {
                 PlayerInputs.jumpKeyPressed = 0;
                 PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
                 _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
                 _hasDoubleJumped = true;
-                PlayerData.ahPlayer.ChangeAnimation("PlayerDoubleJump"); // Animations
+                PlayerData.animPlayer.FromAnyTo("PlayerDoubleJump"); // Animations
             }
         }
-
-        // NOTE: if player hits platform before falling, might not work properly
-        if (PlayerData.rbPlayer.velocity.y <= -0.05f && _isGrounded) {
-            if ((PlayerData.ahPlayer.GetCurrentAnimationName() == "PlayerJump" || PlayerData.ahPlayer.GetCurrentAnimationName() == "PlayerDoubleJump") && _isGrounded) PlayerData.ahPlayer.ChangeAnimation("PlayerIdle"); // Anim
-        }
-        if (PlayerData.rbPlayer.velocity.y >= -0.1f) PlayerData.srPlayer.flipY = false;
     }
 
     private void FixedUpdate() {
@@ -71,14 +65,6 @@ public class PlayerMovement : MonoBehaviour {
                 if (PlayerInputs.horizontalAxis == 0 && Mathf.Abs(_currentSpeed) < 0.05f) _currentSpeed = 0;
             }
             PlayerData.rbPlayer.velocity = new Vector2(_currentSpeed * _movementSpeed * _movementSpeedMultiplier, PlayerData.rbPlayer.velocity.y);
-
-            // Animations
-            if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
-            if (_isGrounded) {
-                if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) PlayerData.ahPlayer.ChangeAnimation("PlayerIdle");
-                else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == (-1 * PlayerInputs.horizontalAxis)) PlayerData.ahPlayer.ChangeAnimation("PlayerBreak");
-                else PlayerData.ahPlayer.ChangeAnimation("PlayerMove");
-            }
         }
     }
 

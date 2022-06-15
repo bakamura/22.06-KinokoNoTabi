@@ -15,6 +15,7 @@ public class AnimationHandler : MonoBehaviour {
 
     public void ChangeAnimation(string name) {
         if (name != GetCurrentAnimationName()) {
+            //print(name);
             for (int i = 0; i < _animations.Length; i++) if (_animations[i].name == name) {
                     _currentAnimation = i;
                     _currentFrame = 0;

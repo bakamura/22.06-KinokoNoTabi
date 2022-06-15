@@ -2298,8 +2298,11 @@ MonoBehaviour:
   - 2
   - 1
   _jumpKb: {x: 0.1, y: 1, z: 0}
+  _delayToJump: 0
+  _seedPrefab: {fileID: 0}
   _seedSpeed: 3
   _seedKb: {x: 1, y: 0.1, z: 0}
+  _delayToShoot: 0
   _actionDelay:
   - 2
   - 1
@@ -5973,6 +5976,7 @@ GameObject:
   - component: {fileID: 1377751662}
   - component: {fileID: 1377751663}
   - component: {fileID: 1377751658}
+  - component: {fileID: 1377751665}
   - component: {fileID: 1377751664}
   - component: {fileID: 1377751661}
   - component: {fileID: 1377751666}
@@ -6141,6 +6145,18 @@ MonoBehaviour:
   _healthUpgradeBonusPoints: 2
   _kbDuration: 0.2
   _delayToRestart: 1
+--- !u!114 &1377751665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377751657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d487a8f3eed7d489a6136d69a66a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1377751666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6184,8 +6200,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a0b7b2a123baa5b4fbbc9976fb0c4a76, type: 2}
   - {fileID: 11400000, guid: f9ac383da40912147a90e475126a118f, type: 2}
   - {fileID: 11400000, guid: 81418ca75cc7dba4bb5e698619d1d9d6, type: 2}
-  - {fileID: 11400000, guid: cf65e60a389bb3d43a025079d72858c1, type: 2}
   - {fileID: 11400000, guid: 7cc422aec098e2943911b17e60bd30d5, type: 2}
+  - {fileID: 11400000, guid: cf65e60a389bb3d43a025079d72858c1, type: 2}
 --- !u!1 &1407425667
 GameObject:
   m_ObjectHideFlags: 0

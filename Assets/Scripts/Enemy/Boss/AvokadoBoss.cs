@@ -35,14 +35,14 @@ public class AvokadoBoss : MonoBehaviour {
         Split,
         Alone
     }
-    private StateN _state;
+    private StateN _state = StateN.Initial;
     private enum ActionN {
         Jump0,
         Jump1,
         Jump2,
         Shoot
     }
-    private ActionN _lastMajorAction;
+    private ActionN _lastMajorAction = ActionN.Shoot;
     private Action _stateUpdate;
     private static GameObject[] _instances = new GameObject[2];
 
@@ -54,7 +54,9 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private void Start() {
-        _seedInstance = Instantiate(_seedInstance, transform); // Spawns prefab, then attaches Instance to the variable (Inteligent or not?)
+        _seedInstance = Instantiate(_seedPrefab, transform).GetComponent<AvokadoSeed>();
+
+        GoToIdle();
     }
 
     private void Update() {

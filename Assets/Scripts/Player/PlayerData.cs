@@ -10,7 +10,7 @@ public class PlayerData : MonoBehaviour {
     [HideInInspector] public static Transform transformPlayer;
     [HideInInspector] public static Rigidbody2D rbPlayer;
     [HideInInspector] public static SpriteRenderer srPlayer;
-    [HideInInspector] public static AnimationHandler ahPlayer;
+    [HideInInspector] public static PlayerAnimations animPlayer;
 
     [Header("Combat Stats")]
 
@@ -27,7 +27,7 @@ public class PlayerData : MonoBehaviour {
         transformPlayer = GetComponent<Transform>();
         rbPlayer = GetComponent<Rigidbody2D>();
         srPlayer = GetComponent<SpriteRenderer>();
-        ahPlayer = GetComponent<AnimationHandler>();
+        animPlayer = GetComponent<PlayerAnimations>();
     }
 
     private void Start() {
@@ -39,7 +39,7 @@ public class PlayerData : MonoBehaviour {
         _healthPoints -= damage;
         UserInterface.Instance.SetHealthUI(_healthPoints);
         if (_healthPoints < 0) {
-            ahPlayer.ChangeAnimation("PlayerDeath");
+            animPlayer.FromAnyTo("PlayerDeath");
             Invoke(nameof(RestartScene), _delayToRestart);
         }
         else {
