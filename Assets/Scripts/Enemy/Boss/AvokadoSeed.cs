@@ -3,10 +3,11 @@ using UnityEngine;
 public class AvokadoSeed : MonoBehaviour {
 
     private Transform _avokadoTransform;
-    private Rigidbody2D _rb;
+    [HideInInspector] public Rigidbody2D rb;
     private SpriteRenderer _sr;
 
     private void Awake() {
+        rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
     }
 
@@ -18,7 +19,7 @@ public class AvokadoSeed : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         switch (collision.tag) {
             case "Player":
-                PlayerData.Instance.TakeDamage(1, _avokadoTransform.GetComponent<AvokadoBoss>()._seedKb);
+                PlayerData.Instance.TakeDamage(1, Mathf.Sign(rb.velocity.x) * _avokadoTransform.GetComponent<AvokadoBoss>()._seedKb);
                 break;
             case "Ground":
 
@@ -28,7 +29,7 @@ public class AvokadoSeed : MonoBehaviour {
 
     public void Activate(bool isActive) {
         if (isActive) transform.position = _avokadoTransform.position;
-        //_rb.simulated = isActive;
+        rb.simulated = isActive;
         _sr.enabled = isActive;
     }
 

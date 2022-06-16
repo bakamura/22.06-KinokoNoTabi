@@ -129,6 +129,7 @@ public class AvokadoBoss : MonoBehaviour {
             _currentJumpPoint = UnityEngine.Random.Range(0, _jumpPoints.Length);
             _jumpStartPos = transform.position;
         }
+        _dataScript.srEnemy.flipX = (_jumpPoints[_currentJumpPoint].x - transform.position.x) < 0;
 
         yield return new WaitForSeconds(_delayToJump);
 
@@ -148,9 +149,12 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private IEnumerator Shoot() {
+        _dataScript.srEnemy.flipX = (PlayerData.transformPlayer.position.x - transform.position.x) < 0;
+
         yield return new WaitForSeconds(_delayToShoot);
 
         _seedInstance.Activate(true);
+        _seedInstance.rb.velocity = new Vector2(_dataScript.srEnemy.flipX ? -_seedSpeed : _seedSpeed, 0);
 
         yield return new WaitForSeconds(0.1f);
 
