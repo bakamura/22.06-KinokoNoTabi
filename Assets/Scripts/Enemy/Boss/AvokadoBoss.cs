@@ -125,8 +125,10 @@ public class AvokadoBoss : MonoBehaviour {
 
     private IEnumerator Jump() {
         _currentJumpPos = 0;
-        _currentJumpPoint = UnityEngine.Random.Range(0, _jumpPoints.Length);
-        _jumpStartPos = transform.position;
+        while ((transform.position - _jumpPoints[_currentJumpPoint]).magnitude < 0.1f) {
+            _currentJumpPoint = UnityEngine.Random.Range(0, _jumpPoints.Length);
+            _jumpStartPos = transform.position;
+        }
 
         yield return new WaitForSeconds(_delayToJump);
 
@@ -135,7 +137,7 @@ public class AvokadoBoss : MonoBehaviour {
 
     private void JumpUpdate() {
         _currentJumpPos += Time.deltaTime / _jumpDuration[(int) _state];
-        if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * (_currentJumpPos > 0.5f ? 2 - (2 *_currentJumpPos) : _currentJumpPos * 2);
+        if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * 4 * (-Mathf.Pow(_currentJumpPos, 2) + _currentJumpPos);
         else {
             transform.position = _jumpPoints[_currentJumpPoint];
             _stateUpdate = null;
