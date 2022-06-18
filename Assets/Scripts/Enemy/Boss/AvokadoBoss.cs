@@ -8,9 +8,11 @@ public class AvokadoBoss : MonoBehaviour {
 
     [Header("Info")]
 
+    [Tooltip("First Element is Dynamic")]
     [SerializeField] private Vector3[] _jumpPoints;
+    public Vector3 seedPos { private get { return _jumpPoints[0]; } set { GoToIdle(); _jumpPoints[0] = value; } }
     [SerializeField] private float _jumpHeight;
-    private int _currentJumpPoint;
+    private int _currentJumpPoint = 1;
     [Tooltip("Jump duration for each phase of the boss Start/Split/Alone")]
     [SerializeField] private float[] _jumpDuration = new float[3];
     private Vector3 _jumpStartPos;
@@ -43,7 +45,7 @@ public class AvokadoBoss : MonoBehaviour {
         Jump2,
         Shoot
     }
-    private ActionN _lastMajorAction = ActionN.Shoot;
+    private ActionN _lastMajorAction = ActionN.Jump2;
     private Action _stateUpdate;
     private static GameObject[] _instances = new GameObject[2];
 
@@ -84,6 +86,9 @@ public class AvokadoBoss : MonoBehaviour {
                         StartCoroutine(Shoot());
                         break;
                     case ActionN.Shoot:
+                        StartCoroutine(CatchSeed());
+                        break;
+                    case ActionN.Jump2:
                         StartCoroutine(Jump());
                         break;
                 }
@@ -125,10 +130,8 @@ public class AvokadoBoss : MonoBehaviour {
 
     private IEnumerator Jump() {
         _currentJumpPos = 0;
-        while ((transform.position - _jumpPoints[_currentJumpPoint]).magnitude < 0.1f) {
-            _currentJumpPoint = UnityEngine.Random.Range(0, _jumpPoints.Length);
-            _jumpStartPos = transform.position;
-        }
+        while ((transform.position - _jumpPoints[_currentJumpPoint]).magnitude < 0.1f) _currentJumpPoint = UnityEngine.Random.Range(1, _jumpPoints.Length);
+        _jumpStartPos = transform.position;
         _dataScript.srEnemy.flipX = (_jumpPoints[_currentJumpPoint].x - transform.position.x) < 0;
 
         yield return new WaitForSeconds(_delayToJump);
@@ -137,13 +140,24 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private void JumpUpdate() {
-        _currentJumpPos += Time.deltaTime / _jumpDuration[(int) _state];
+        _currentJumpPos += Time.deltaTime / _jumpDuration[(int)_state];
         if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * 4 * (-Mathf.Pow(_currentJumpPos, 2) + _currentJumpPos);
         else {
             transform.position = _jumpPoints[_currentJumpPoint];
             _stateUpdate = null;
-            if (_lastMajorAction == ActionN.Jump0) _lastMajorAction = ActionN.Jump1;
-            else _lastMajorAction = ActionN.Jump0;
+            switch (_lastMajorAction) {
+                case ActionN.Jump0:
+                    _lastMajorAction = ActionN.Jump1;
+                    break;
+                case ActionN.Shoot:
+                    _seedInstance.Activate(false); //
+                    _lastMajorAction = ActionN.Jump2;
+                    break;
+                case ActionN.Jump2:
+                    _lastMajorAction = ActionN.Jump0;
+                    break;
+            }
+
             GoToIdle();
         }
     }
@@ -159,7 +173,17 @@ public class AvokadoBoss : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
 
         _lastMajorAction = ActionN.Shoot;
-        GoToIdle();
+        //GoToIdle();
     }
 
+    private IEnumerator CatchSeed() {
+        _currentJumpPos = 0;
+        _currentJumpPoint = 0;
+        _jumpStartPos = transform.position;
+        _dataScript.srEnemy.flipX = (_jumpPoints[0].x - transform.position.x) < 0;
+
+        yield return new WaitForSeconds(_delayToJump);
+
+        _stateUpdate = JumpUpdate;
+    }
 }
