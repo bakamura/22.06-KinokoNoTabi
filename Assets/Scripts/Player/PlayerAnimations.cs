@@ -11,11 +11,11 @@ public class PlayerAnimations : MonoBehaviour {
     }
 
     private void Update() {
-        if (PlayerData.rbPlayer.velocity.x != 0) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
+        if (PlayerData.rbPlayer.velocity.x != 0 && PlayerMovement.Instance.canMove) PlayerData.srPlayer.flipX = PlayerData.rbPlayer.velocity.x < 0;
         PlayerData.srPlayer.flipY = PlayerData.rbPlayer.velocity.y >= -0.1f && _handler.GetCurrentAnimationName() == "PlayerDoubleJump";
 
         // Movement
-        if (PlayerMovement.Instance.isGrounded) {
+        if (PlayerMovement.Instance.isGrounded && PlayerMovement.Instance.canMove) {
             if (PlayerData.rbPlayer.velocity.x == 0 && PlayerInputs.horizontalAxis == 0) _handler.ChangeAnimation("PlayerIdle");
             else if (Mathf.Sign(PlayerData.rbPlayer.velocity.x) == PlayerInputs.horizontalAxis) _handler.ChangeAnimation("PlayerMove");
             else _handler.ChangeAnimation("PlayerBreak");

@@ -17,11 +17,13 @@ public class AvokadoSeed : MonoBehaviour {
         _avokadoTransform = transform.parent;
         transform.parent = null;
         transform.localScale = Vector3.one; //
+
+        Physics2D.IgnoreCollision(col, _avokadoTransform.GetComponent<Collider2D>());
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Ground") {
-            _avokadoTransform.GetComponent<AvokadoBoss>().seedPos = transform.position + new Vector3((transform.position.x - _avokadoTransform.position.x < 0 ? 1 : -1) * transform.localScale.x, transform.localScale.y, 1);
+            _avokadoTransform.GetComponent<AvokadoBoss>().SetSeedPos(transform.position + new Vector3((transform.position.x - _avokadoTransform.position.x < 0 ? 1 : -1) * transform.localScale.x / 2, transform.localScale.y / 2, 1));
         }
     }
 
@@ -34,6 +36,7 @@ public class AvokadoSeed : MonoBehaviour {
                 rb.velocity = Vector2.up; //
                 rb.gravityScale = 1;
                 col.isTrigger = false;
+                Physics2D.IgnoreCollision(col, PlayerData.Instance.GetComponent<Collider2D>());
                 break;
         }
     }
@@ -43,6 +46,7 @@ public class AvokadoSeed : MonoBehaviour {
             transform.position = _avokadoTransform.position;
             rb.gravityScale = 0;
             col.isTrigger = true;
+            Physics2D.IgnoreCollision(col, PlayerData.Instance.GetComponent<Collider2D>(), false);
         }
         rb.simulated = isActive;
         _sr.enabled = isActive;

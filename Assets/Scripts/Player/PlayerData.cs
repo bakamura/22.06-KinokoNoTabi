@@ -38,7 +38,7 @@ public class PlayerData : MonoBehaviour {
     public void TakeDamage(int damage, Vector3 knockBack) {
         _healthPoints -= damage;
         UserInterface.Instance.SetHealthUI(_healthPoints);
-        if (_healthPoints < 0) {
+        if (_healthPoints <= 0) {
             animPlayer.FromAnyTo("PlayerDeath");
             Invoke(nameof(RestartScene), _delayToRestart);
         }
@@ -51,7 +51,7 @@ public class PlayerData : MonoBehaviour {
 
     public void StopKnockback() {
         rbPlayer.velocity = Vector2.zero;
-        PlayerMovement.Instance.canMove = false;
+        PlayerMovement.Instance.canMove = true;
     }
 
     private void RestartScene() {

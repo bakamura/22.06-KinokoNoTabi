@@ -6,20 +6,23 @@ public class AvokadoBoss : MonoBehaviour {
 
     private EnemyData _dataScript;
 
-    [Header("Info")]
+    [Header("Jump")]
 
     [Tooltip("First Element is Dynamic")]
     [SerializeField] private Vector3[] _jumpPoints;
-    public Vector3 seedPos { private get { return _jumpPoints[0]; } set { GoToIdle(); _jumpPoints[0] = value; } }
     [SerializeField] private float _jumpHeight;
     private int _currentJumpPoint = 1;
     [Tooltip("Jump duration for each phase of the boss Start/Split/Alone")]
     [SerializeField] private float[] _jumpDuration = new float[3];
+    [SerializeField] private Vector2 _jumpAtkArea;
+    [SerializeField] private Vector3 _jumpAreaOffset;
     private Vector3 _jumpStartPos;
     private float _currentJumpPos;
     [Tooltip("Kb assumes player is to the right")]
     [SerializeField] private Vector3 _jumpKb;
     [SerializeField] private float _delayToJump;
+
+    [Header("Seed")]
 
     [SerializeField] private GameObject _seedPrefab;
     private AvokadoSeed _seedInstance;
@@ -27,6 +30,12 @@ public class AvokadoBoss : MonoBehaviour {
     [Tooltip("Kb assumes player is to the right")]
     public Vector3 _seedKb;
     [SerializeField] private float _delayToShoot;
+
+    [Header("Clone")]
+
+    [SerializeField] private GameObject _clonePrefab;
+
+    [Header("Misc")]
 
     [SerializeField] private float[] _actionDelay = new float[3];
 
@@ -71,8 +80,10 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private void GoToNextAction() {
-        if (_dataScript.healthPoints < _hpAmountToSplit) {
-            //StartCoroutine();
+        if (_dataScript.healthPoints < _hpAmountToSplit && _lastMajorAction == ActionN.Jump0) {
+            _state = StateN.Split;
+            _lastMajorAction = ActionN.Jump2;
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _seedInstance.GetComponent<Collider2D>(), false);
             return;
         }
 
@@ -123,6 +134,7 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private IEnumerator Idle() {
+        print("AvoIdle");
         yield return new WaitForSeconds(_actionDelay[(int)_state]);
 
         GoToNextAction();
@@ -136,6 +148,7 @@ public class AvokadoBoss : MonoBehaviour {
 
         yield return new WaitForSeconds(_delayToJump);
 
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), PlayerData.Instance.GetComponent<Collider2D>());
         _stateUpdate = JumpUpdate;
     }
 
@@ -144,6 +157,11 @@ public class AvokadoBoss : MonoBehaviour {
         if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * 4 * (-Mathf.Pow(_currentJumpPos, 2) + _currentJumpPos);
         else {
             transform.position = _jumpPoints[_currentJumpPoint];
+
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), PlayerData.Instance.GetComponent<Collider2D>(), false);
+            Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position - _jumpAreaOffset, _jumpAtkArea, 0);
+            foreach (Collider2D hit in hits) if (hit.GetComponent<PlayerData>() != null) PlayerData.Instance.TakeDamage(1, PlayerData.srPlayer.flipX ? -_jumpKb : _jumpKb);
+
             _stateUpdate = null;
             switch (_lastMajorAction) {
                 case ActionN.Jump0:
@@ -173,7 +191,11 @@ public class AvokadoBoss : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
 
         _lastMajorAction = ActionN.Shoot;
-        //GoToIdle();
+    }
+
+    public void SetSeedPos(Vector3 pos) {
+        GoToIdle();
+        _jumpPoints[0] = pos;
     }
 
     private IEnumerator CatchSeed() {
@@ -185,5 +207,25 @@ public class AvokadoBoss : MonoBehaviour {
         yield return new WaitForSeconds(_delayToJump);
 
         _stateUpdate = JumpUpdate;
+    }
+
+    private IEnumerator ShootSeedSpawnClone() {
+        _currentJumpPos = 0;
+        while ((transform.position - _jumpPoints[_currentJumpPoint]).magnitude < 0.1f) _currentJumpPoint = UnityEngine.Random.Range(1, _jumpPoints.Length);
+        _jumpStartPos = transform.position;
+        _dataScript.srEnemy.flipX = (_jumpPoints[_currentJumpPoint].x - transform.position.x) < 0;
+
+        yield return new WaitForSeconds(_delayToShoot);
+
+        _stateUpdate = SeedArcUpdate;
+
+    }
+
+    private void SeedArcUpdate() {
+        _currentJumpPos += Time.deltaTime / _jumpDuration[(int)_state];
+        if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * 4 * (-Mathf.Pow(_currentJumpPos, 2) + _currentJumpPos);
+        else {
+            Instantiate(_clonePrefab, transform.position, Quaternion.identity)
+        }
     }
 }

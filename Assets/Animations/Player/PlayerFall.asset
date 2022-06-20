@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerFall
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -5783185165838227867, guid: b0446a069d7d8684aad3e0561859fbc3, type: 3}
+  - {fileID: 8926083368761555049, guid: b0446a069d7d8684aad3e0561859fbc3, type: 3}
   speed: 2
   repeat: 0
   repeatFrom: 0
