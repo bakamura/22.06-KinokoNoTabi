@@ -225,7 +225,7 @@ public class AvokadoBoss : MonoBehaviour {
         _currentJumpPos += Time.deltaTime / _jumpDuration[(int)_state];
         if (_currentJumpPos < 1) transform.position = Vector3.Lerp(_jumpStartPos, _jumpPoints[_currentJumpPoint], _currentJumpPos) + Vector3.up * _jumpHeight * 4 * (-Mathf.Pow(_currentJumpPos, 2) + _currentJumpPos);
         else {
-            Instantiate(_clonePrefab, transform.position, Quaternion.identity)
+            Instantiate(_clonePrefab, transform.position, Quaternion.identity);
         }
     }
 }
