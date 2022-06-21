@@ -44,7 +44,7 @@ public class SaveData {
         // Player
         doubleJumpUpgrade = GameManager.doubleJumpUpgrade;
         healthPointsUpgrade = GameManager.healthPointsUpgrade;
-        poisonBlowUpgrade = GameManager.poisonBlowUpgrade;
+        //poisonBlowUpgrade = GameManager.poisonBlowUpgrade;
 
         // Settings
         MasterVol = GameManager.MasterVol;

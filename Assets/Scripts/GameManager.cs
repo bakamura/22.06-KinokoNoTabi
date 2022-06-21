@@ -21,7 +21,7 @@ public static class GameManager {
     // Player
     public static bool doubleJumpUpgrade = false;
     public static bool healthPointsUpgrade = false;
-    public static bool poisonBlowUpgrade = false;
+    //public static bool poisonBlowUpgrade = false;
 
     // Settings
     public static float MasterVol = 1f;

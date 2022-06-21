@@ -44,7 +44,7 @@ public static class SaveSystem {
             // Player
             GameManager.doubleJumpUpgrade = data.doubleJumpUpgrade;
             GameManager.healthPointsUpgrade = data.healthPointsUpgrade;
-            GameManager.poisonBlowUpgrade = data.poisonBlowUpgrade;
+            //GameManager.poisonBlowUpgrade = data.poisonBlowUpgrade;
 
             // Settings
             GameManager.MasterVol = data.MasterVol; // On load, set slider values

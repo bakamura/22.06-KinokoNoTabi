@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour {
 
     private float jumpGroundCheckDelay = 0.2f;
 
+    [Header("Animation")]
+
+    const string PlayerJump = "PlayerJump";
+    const string PlayerDoubleJump = "PlayerDoubleJump";
+
     private void Awake() {
         Instance = this;
     }
@@ -35,24 +40,26 @@ public class PlayerMovement : MonoBehaviour {
         // Jumping
         if (jumpGroundCheckDelay < 0) isGrounded = Physics2D.OverlapBox(transform.position + _groundCheckOffset, _groundCheckArea, 0, _groundLayer);
         else jumpGroundCheckDelay -= Time.deltaTime;
-        if (isGrounded) {
-            _hasDoubleJumped = false;
-            _movementSpeedMultiplier = 1;
-        }
-        if (PlayerInputs.jumpKeyPressed > 0) {
+        if (canMove) {
             if (isGrounded) {
-                PlayerInputs.jumpKeyPressed = 0;
-                PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
-                PlayerData.animPlayer.FromAnyTo("PlayerJump"); // Animations
-                jumpGroundCheckDelay = 0.2f;
-                isGrounded = false;
+                _hasDoubleJumped = false;
+                _movementSpeedMultiplier = 1;
             }
-            else if (!_hasDoubleJumped && GameManager.doubleJumpUpgrade) {
-                PlayerInputs.jumpKeyPressed = 0;
-                PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
-                _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
-                _hasDoubleJumped = true;
-                PlayerData.animPlayer.FromAnyTo("PlayerDoubleJump"); // Animations
+            if (PlayerInputs.jumpKeyPressed > 0) {
+                if (isGrounded) {
+                    PlayerInputs.jumpKeyPressed = 0;
+                    PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
+                    PlayerData.animPlayer.FromAnyTo(PlayerJump); // Animations
+                    jumpGroundCheckDelay = 0.2f;
+                    isGrounded = false;
+                }
+                else if (!_hasDoubleJumped && GameManager.doubleJumpUpgrade) {
+                    PlayerInputs.jumpKeyPressed = 0;
+                    PlayerData.rbPlayer.velocity = new Vector2(PlayerData.rbPlayer.velocity.x, _jumpStrenght);
+                    _movementSpeedMultiplier = _doubleJumpMovementSpeedMultiplier;
+                    _hasDoubleJumped = true;
+                    PlayerData.animPlayer.FromAnyTo(PlayerDoubleJump); // Animations
+                }
             }
         }
     }

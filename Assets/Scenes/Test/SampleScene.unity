@@ -3283,6 +3283,7 @@ MonoBehaviour:
   _seedSpeed: 7
   _seedKb: {x: 5, y: 2, z: 0}
   _delayToShoot: 0.1
+  _clonePrefab: {fileID: 0}
   _actionDelay:
   - 2
   - 1
@@ -8165,7 +8166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   _movementSpeed: 3
-  _damping: 12.5
+  _damping: 6.25
   _jumpStrenght: 15
   _groundCheckOffset: {x: 0, y: -0.3, z: 0}
   _groundCheckArea: {x: 0.7, y: 0.1}
@@ -8251,19 +8252,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c9dbe18bca3d74bb0a862b08a300f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageShotAttack: 2
+  damageShotAttack: 1
   knockBackShotAttack: {x: 2.5, y: 1.25, z: 0}
-  speedShotAttack: 6
+  speedShotAttack: 8
   _prefabShotAttack: {fileID: 1051532121288745979, guid: e64f4018b30c0ac4f8ab8122fa3e6d8c, type: 3}
   spawnPointShotAttack: {x: 0, y: -0.125, z: 0}
-  _delayToSpawnShotAttack: 0.1
+  _delayToSpawnShotAttack: 0.25
+  _delayAfterShotAttack: 0.15
   _instanceAmountShotAttack: 7
   timeToDespawnShotAttack: 10
-  damagePerSecondStreamAttack: 1
-  _speedStreamAttack: 2
-  _prefabStreamAttack: {fileID: 0}
-  _spawnPointStreamAttack: {x: 0, y: -0.125, z: 0}
-  _delayToSpawnStreamAttack: 0.2
 --- !u!114 &1377751667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9101,7 +9098,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 2
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -9187,7 +9184,7 @@ MonoBehaviour:
   _patrolSpeed: 1.5
   _movementDistance: 10
   _wallDetectDistance: 0.7
-  _jumpStrenght: 6
+  _jumpStrenght: 7
 --- !u!114 &2133725161
 MonoBehaviour:
   m_ObjectHideFlags: 0

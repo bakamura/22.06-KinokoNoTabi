@@ -55,7 +55,7 @@ public class DebugScript : MonoBehaviour {
             GameManager.levelPosition = levelPosition; // On load, set map position
             GameManager.doubleJumpUpgrade = doubleJumpUpgrade;
             GameManager.healthPointsUpgrade = healthPointsUpgrade;
-            GameManager.poisonBlowUpgrade = poisonBlowUpgrade;
+            //GameManager.poisonBlowUpgrade = poisonBlowUpgrade;
 
             // Settings
             GameManager.MasterVol = MasterVol; // On load, set slider values

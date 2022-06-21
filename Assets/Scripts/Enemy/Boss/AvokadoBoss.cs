@@ -134,7 +134,6 @@ public class AvokadoBoss : MonoBehaviour {
     }
 
     private IEnumerator Idle() {
-        print("AvoIdle");
         yield return new WaitForSeconds(_actionDelay[(int)_state]);
 
         GoToNextAction();
